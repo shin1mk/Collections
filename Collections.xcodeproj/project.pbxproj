@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		13F8239D2A575CEB00A9F33D /* CustomTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F8239C2A575CEB00A9F33D /* CustomTableView.swift */; };
+		13F8239F2A5768D800A9F33D /* ArrayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F8239E2A5768D800A9F33D /* ArrayViewController.swift */; };
+		13F823A12A5768FB00A9F33D /* SetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F823A02A5768FB00A9F33D /* SetViewController.swift */; };
+		13F823A32A57691500A9F33D /* DictionaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F823A22A57691500A9F33D /* DictionaryViewController.swift */; };
 		13FE2F8E2A56A99D001E201C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FE2F8D2A56A99D001E201C /* AppDelegate.swift */; };
 		13FE2F902A56A99D001E201C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FE2F8F2A56A99D001E201C /* SceneDelegate.swift */; };
 		13FE2F922A56A99D001E201C /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FE2F912A56A99D001E201C /* MainController.swift */; };
@@ -39,6 +43,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		13F8239C2A575CEB00A9F33D /* CustomTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableView.swift; sourceTree = "<group>"; };
+		13F8239E2A5768D800A9F33D /* ArrayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayViewController.swift; sourceTree = "<group>"; };
+		13F823A02A5768FB00A9F33D /* SetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewController.swift; sourceTree = "<group>"; };
+		13F823A22A57691500A9F33D /* DictionaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryViewController.swift; sourceTree = "<group>"; };
 		13FE2F8A2A56A99D001E201C /* Collections.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Collections.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13FE2F8D2A56A99D001E201C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		13FE2F8F2A56A99D001E201C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -91,6 +99,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		13F8239B2A575CD900A9F33D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				13F8239C2A575CEB00A9F33D /* CustomTableView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		13FE2F812A56A99D001E201C = {
 			isa = PBXGroup;
 			children = (
@@ -116,6 +132,7 @@
 		13FE2F8C2A56A99D001E201C /* Collections */ = {
 			isa = PBXGroup;
 			children = (
+				13F8239B2A575CD900A9F33D /* Views */,
 				13FE2FC12A56AA9F001E201C /* Controller */,
 				13FE2FC02A56AA8E001E201C /* Application */,
 				13FE2FC22A56AABC001E201C /* Resources */,
@@ -153,6 +170,9 @@
 			isa = PBXGroup;
 			children = (
 				13FE2F912A56A99D001E201C /* MainController.swift */,
+				13F8239E2A5768D800A9F33D /* ArrayViewController.swift */,
+				13F823A02A5768FB00A9F33D /* SetViewController.swift */,
+				13F823A22A57691500A9F33D /* DictionaryViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -178,7 +198,6 @@
 				69BED85C7316A589C3309C9A /* Pods-CollectionsTests.debug.xcconfig */,
 				9382DA8BA8D1B557456ACE7B /* Pods-CollectionsTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -430,9 +449,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				13F8239D2A575CEB00A9F33D /* CustomTableView.swift in Sources */,
 				13FE2F922A56A99D001E201C /* MainController.swift in Sources */,
+				13F8239F2A5768D800A9F33D /* ArrayViewController.swift in Sources */,
 				13FE2F8E2A56A99D001E201C /* AppDelegate.swift in Sources */,
+				13F823A12A5768FB00A9F33D /* SetViewController.swift in Sources */,
 				13FE2F902A56A99D001E201C /* SceneDelegate.swift in Sources */,
+				13F823A32A57691500A9F33D /* DictionaryViewController.swift in Sources */,
 				13FE2F982A56A99D001E201C /* Collections.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
