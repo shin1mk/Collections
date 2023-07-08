@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		13B8F8C12A5984C50012F20E /* ArrayViewControllerLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B8F8C02A5984C50012F20E /* ArrayViewControllerLogic.swift */; };
 		13F8239D2A575CEB00A9F33D /* CustomTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F8239C2A575CEB00A9F33D /* CustomTableView.swift */; };
 		13F8239F2A5768D800A9F33D /* ArrayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F8239E2A5768D800A9F33D /* ArrayViewController.swift */; };
 		13F823A12A5768FB00A9F33D /* SetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F823A02A5768FB00A9F33D /* SetViewController.swift */; };
@@ -43,6 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		13B8F8C02A5984C50012F20E /* ArrayViewControllerLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayViewControllerLogic.swift; sourceTree = "<group>"; };
 		13F8239C2A575CEB00A9F33D /* CustomTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableView.swift; sourceTree = "<group>"; };
 		13F8239E2A5768D800A9F33D /* ArrayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayViewController.swift; sourceTree = "<group>"; };
 		13F823A02A5768FB00A9F33D /* SetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewController.swift; sourceTree = "<group>"; };
@@ -99,6 +101,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		13B8F8BF2A5984B60012F20E /* Logic */ = {
+			isa = PBXGroup;
+			children = (
+				13B8F8C02A5984C50012F20E /* ArrayViewControllerLogic.swift */,
+			);
+			path = Logic;
+			sourceTree = "<group>";
+		};
 		13F8239B2A575CD900A9F33D /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -132,6 +142,7 @@
 		13FE2F8C2A56A99D001E201C /* Collections */ = {
 			isa = PBXGroup;
 			children = (
+				13B8F8BF2A5984B60012F20E /* Logic */,
 				13F8239B2A575CD900A9F33D /* Views */,
 				13FE2FC12A56AA9F001E201C /* Controller */,
 				13FE2FC02A56AA8E001E201C /* Application */,
@@ -450,6 +461,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13F8239D2A575CEB00A9F33D /* CustomTableView.swift in Sources */,
+				13B8F8C12A5984C50012F20E /* ArrayViewControllerLogic.swift in Sources */,
 				13FE2F922A56A99D001E201C /* MainController.swift in Sources */,
 				13F8239F2A5768D800A9F33D /* ArrayViewController.swift in Sources */,
 				13FE2F8E2A56A99D001E201C /* AppDelegate.swift in Sources */,
