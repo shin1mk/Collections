@@ -72,7 +72,7 @@ extension MainController: UITableViewDelegate {
         if let viewController = newViewController {
             self.navigationController?.pushViewController(viewController, animated: true)
         } else {
-            print("Failed to initialize new view controller.")
+            print("Fail")
         }
     }
 }
