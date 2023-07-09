@@ -23,9 +23,13 @@ final class MainController: UIViewController {
         super.viewDidLoad()
         setupTableView()
         setupConstraints()
+        setupTableViewDelegate()
+    }
+    //MARK: Methods
+    private func setupTableViewDelegate() {
         tableView.delegate = self
     }
-    //MARK: Table View Setup
+
     private func setupTableView() {
         tableView = CustomTableView()
         tableView.setPresentingViewController(self)
@@ -71,8 +75,6 @@ extension MainController: UITableViewDelegate {
         
         if let viewController = newViewController {
             self.navigationController?.pushViewController(viewController, animated: true)
-        } else {
-            print("Fail")
         }
     }
 }
