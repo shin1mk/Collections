@@ -31,7 +31,6 @@ final class ArrayViewController: UIViewController {
         let tableView = UITableView()
         return tableView
     }()
-    
     //MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +38,7 @@ final class ArrayViewController: UIViewController {
         setupNavigationBar()
         setupTableView()
     }
-    
+    //MARK: TableView
     private func setupTableView() {
         tableView.backgroundColor = .white
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
@@ -47,12 +46,12 @@ final class ArrayViewController: UIViewController {
         setupTableViewDelegate()
         setupTableViewConstraints()
     }
-    
+    //MARK: Methods
     private func setupTableViewDelegate() {
         tableView.delegate = self
         tableView.dataSource = self
     }
-    
+
     private func setupTableViewConstraints() {
         tableView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
@@ -62,17 +61,17 @@ final class ArrayViewController: UIViewController {
     //MARK: Navigation bar
     private func setupNavigationBar() {
         setupBackButtonTarget()
-   
+
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backButton)
         navigationItem.titleView = titleLabel
     }
-    
+
     private func setupBackButtonTarget() {
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
     }
-    
-    
+
     @objc private func backButtonTapped() {
         navigationController?.popViewController(animated: true)
     }
 }
+
