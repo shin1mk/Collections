@@ -146,6 +146,7 @@ final class ArrayViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        //        return 6
         return titles.count
         
     }
@@ -251,7 +252,7 @@ final class ArrayViewController: UIViewController, UITableViewDelegate, UITableV
         let executionTime = end - start
         let roundedTime = (executionTime * 100).rounded() / 100
         
-        numberOfSections = 2
+        numberOfSections = 1
         DispatchQueue.main.async {
             self.collectionView.reloadData() // Reload collection view
         }
