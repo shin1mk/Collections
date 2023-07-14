@@ -7,6 +7,12 @@
 import UIKit
 import SnapKit
 
+enum CellState {
+    case start
+    case loading
+    case complete
+}
+
 final class ArrayViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     //MARK: Properties
     private let backButton: UIButton = {
@@ -123,7 +129,7 @@ final class ArrayViewController: UIViewController, UITableViewDelegate, UITableV
         cell.textLabel?.textAlignment = .center
         return cell
     }
-    
+
     func addActivityIndicator(to cell: UITableViewCell) -> UIActivityIndicatorView {
         let activityIndicator = UIActivityIndicatorView(style: .medium)
         activityIndicator.color = .darkGray
@@ -146,6 +152,7 @@ final class ArrayViewController: UIViewController, UITableViewDelegate, UITableV
         isTaskRunning = true
         if let cell = tableView.cellForRow(at: indexPath) {
             cell.textLabel?.text = ""
+            
             let activityIndicator = addActivityIndicator(to: cell)
             DispatchQueue.global().async {
                 let executionTime = self.generateIntArray()
@@ -194,9 +201,9 @@ final class ArrayViewController: UIViewController, UITableViewDelegate, UITableV
         cell.layer.borderWidth = 1
         cell.layer.borderColor = UIColor.customBorderColor.cgColor
         
-        for subview in cell.contentView.subviews {
-            subview.removeFromSuperview()
-        }
+           for subview in cell.contentView.subviews {
+               subview.removeFromSuperview()
+           }
         
         let textLabel = UILabel(frame: cell.bounds)
         textLabel.text = titles[indexPath.item]
@@ -210,7 +217,7 @@ final class ArrayViewController: UIViewController, UITableViewDelegate, UITableV
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let array = generateIntArray().components(separatedBy: ", ").compactMap { Int($0) }
-        
+
         switch indexPath.item {
         case 0:
             insertElementsOneByOne(array: array)
@@ -362,7 +369,7 @@ final class ArrayViewController: UIViewController, UITableViewDelegate, UITableV
     func removeElementsIndividually(array: [Int]) {
         var array = array
         let start = CACurrentMediaTime()
-        
+
         let numberOfElementsToRemove = min(1000, array.count)
         for _ in 0..<numberOfElementsToRemove {
             array.removeFirst()
@@ -377,11 +384,11 @@ final class ArrayViewController: UIViewController, UITableViewDelegate, UITableV
             }
         }
     }
-    
+
     func removeElementsAtOnce(array: [Int]) {
         var array = array
         let start = CACurrentMediaTime()
-        
+
         let numberOfElementsToRemove = min(1000, array.count)
         if numberOfElementsToRemove > 0 {
             array.removeFirst(numberOfElementsToRemove)
@@ -418,7 +425,7 @@ final class ArrayViewController: UIViewController, UITableViewDelegate, UITableV
             }
         }
     }
-    
+
     func removeElementsAtOnceFromMiddle(array: [Int]) {
         var array = array
         let start = CACurrentMediaTime()
@@ -459,7 +466,7 @@ final class ArrayViewController: UIViewController, UITableViewDelegate, UITableV
             }
         }
     }
-    
+
     func removeElementsAtOnceFromEnd(array: [Int]) {
         var mutableArray = array
         let start = CACurrentMediaTime()
