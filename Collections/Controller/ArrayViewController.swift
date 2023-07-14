@@ -7,12 +7,6 @@
 import UIKit
 import SnapKit
 
-enum CellState {
-    case start
-    case loading
-    case complete
-}
-
 final class ArrayViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     //MARK: Properties
     private let backButton: UIButton = {
@@ -130,6 +124,47 @@ final class ArrayViewController: UIViewController, UITableViewDelegate, UITableV
         return cell
     }
 
+//    func addActivityIndicator(to cell: UITableViewCell) -> UIActivityIndicatorView {
+//        let activityIndicator = UIActivityIndicatorView(style: .medium)
+//        activityIndicator.color = .darkGray
+//        activityIndicator.startAnimating()
+//        cell.contentView.addSubview(activityIndicator)
+//        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            activityIndicator.centerXAnchor.constraint(equalTo: cell.contentView.centerXAnchor),
+//            activityIndicator.centerYAnchor.constraint(equalTo: cell.contentView.centerYAnchor)
+//        ])
+//        return activityIndicator
+//    }
+//
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        tableView.deselectRow(at: indexPath, animated: true)
+//
+//        guard !isTaskRunning else {
+//            return
+//        }
+//        isTaskRunning = true
+//        if let cell = tableView.cellForRow(at: indexPath) {
+//            cell.textLabel?.text = ""
+//
+//            let activityIndicator = addActivityIndicator(to: cell)
+//            DispatchQueue.global().async {
+//                let executionTime = self.generateIntArray()
+//                DispatchQueue.main.async {
+//                    activityIndicator.removeFromSuperview()
+//                    cell.textLabel?.text = "Array generation time: \(executionTime)"
+//                }
+//            }
+//        }
+//    }
+    
+    enum ActivityIndicatorState {
+        case start
+        case loading
+    }
+
+    var activityIndicatorState: ActivityIndicatorState = .start
+
     func addActivityIndicator(to cell: UITableViewCell) -> UIActivityIndicatorView {
         let activityIndicator = UIActivityIndicatorView(style: .medium)
         activityIndicator.color = .darkGray
@@ -142,14 +177,15 @@ final class ArrayViewController: UIViewController, UITableViewDelegate, UITableV
         ])
         return activityIndicator
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        guard !isTaskRunning else {
+        guard activityIndicatorState != .loading else {
             return
         }
-        isTaskRunning = true
+        activityIndicatorState = .loading
+        
         if let cell = tableView.cellForRow(at: indexPath) {
             cell.textLabel?.text = ""
             
@@ -159,10 +195,12 @@ final class ArrayViewController: UIViewController, UITableViewDelegate, UITableV
                 DispatchQueue.main.async {
                     activityIndicator.removeFromSuperview()
                     cell.textLabel?.text = "Array generation time: \(executionTime)"
+                    self.activityIndicatorState = .start
                 }
             }
         }
     }
+
     //MARK: - Private methods
     private func generateIntArray() -> String {
         var array = [Int]()
