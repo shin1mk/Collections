@@ -277,12 +277,9 @@ extension ArrayViewController: UICollectionViewDataSource, UICollectionViewDeleg
                 }
             }
         } else if indexPath.section == 1 && indexPath.item == 0 {
-            // Set the loading state for the selected cell
-            cellStates[indexPath] = (.loading, "")
             state = .loading
             
             DispatchQueue.global().async {
-                // Call the function to insert 1000 elements at the start of the array
                 let executionTimeFormatted = self.insertElementsToStartOfArray()
                 print("Execution time: \(executionTimeFormatted) seconds")
 
