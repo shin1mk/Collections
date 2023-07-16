@@ -183,29 +183,24 @@ final class SetViewController: UIViewController {
         guard let textFull = textFieldFull.text, let textCharacters = textFieldCharacters.text else {
             return
         }
-        let matchingCharacters = Set(textFull).intersection(Set(textCharacters))
-        let matchingCharactersString = matchingCharacters.map { String($0) }.joined(separator: "")
-        matchingResultLabel.text = "\(matchingCharactersString)"
+        let matchingCharactersString = SetOperations.findMatchingCharacters(textFull: textFull, textCharacters: textCharacters)
+        matchingResultLabel.text = matchingCharactersString
     }
  
     @objc private func showNonMatchingCharacters() {
         guard let textFull = textFieldFull.text, let textCharacters = textFieldCharacters.text else {
             return
         }
-        let nonMatchingCharactersInTextFull = Set(textFull).subtracting(Set(textCharacters))
-        let nonMatchingCharactersInTextCharacters = Set(textCharacters).subtracting(Set(textFull))
-        let allNonMatchingCharacters = nonMatchingCharactersInTextFull.union(nonMatchingCharactersInTextCharacters)
-        let nonMatchingCharactersString = allNonMatchingCharacters.map { String($0) }.joined(separator: "")
-        nonMatchResultLabel.text = "\(nonMatchingCharactersString)"
+        let nonMatchingCharactersString = SetOperations.findNonMatchingCharacters(textFull: textFull, textCharacters: textCharacters)
+        nonMatchResultLabel.text = nonMatchingCharactersString
     }
     
     @objc private func showUniqueCharacters() {
         guard let textFull = textFieldFull.text, let textCharacters = textFieldCharacters.text else {
             return
         }
-        let uniqueCharacters = Set(textFull).subtracting(Set(textCharacters))
-        let uniqueCharactersString = uniqueCharacters.map { String($0) }.joined(separator: "")
-        uniqueResultLabel.text = "\(uniqueCharactersString)"
+        let uniqueCharactersString = SetOperations.findUniqueCharacters(textFull: textFull, textCharacters: textCharacters)
+            uniqueResultLabel.text = uniqueCharactersString
     }
 
 } // setViewController

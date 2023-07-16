@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1370FBCB2A648E0400C66BAF /* SetOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1370FBCA2A648E0400C66BAF /* SetOperations.swift */; };
 		13B8F8C12A5984C50012F20E /* ArrayViewControllerLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B8F8C02A5984C50012F20E /* ArrayViewControllerLogic.swift */; };
 		13F8239D2A575CEB00A9F33D /* CustomTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F8239C2A575CEB00A9F33D /* CustomTableView.swift */; };
 		13F8239F2A5768D800A9F33D /* ArrayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F8239E2A5768D800A9F33D /* ArrayViewController.swift */; };
@@ -44,6 +45,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1370FBCA2A648E0400C66BAF /* SetOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetOperations.swift; sourceTree = "<group>"; };
 		13B8F8C02A5984C50012F20E /* ArrayViewControllerLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayViewControllerLogic.swift; sourceTree = "<group>"; };
 		13F8239C2A575CEB00A9F33D /* CustomTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableView.swift; sourceTree = "<group>"; };
 		13F8239E2A5768D800A9F33D /* ArrayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayViewController.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 			isa = PBXGroup;
 			children = (
 				13B8F8C02A5984C50012F20E /* ArrayViewControllerLogic.swift */,
+				1370FBCA2A648E0400C66BAF /* SetOperations.swift */,
 			);
 			path = Logic;
 			sourceTree = "<group>";
@@ -462,6 +465,7 @@
 			files = (
 				13F8239D2A575CEB00A9F33D /* CustomTableView.swift in Sources */,
 				13B8F8C12A5984C50012F20E /* ArrayViewControllerLogic.swift in Sources */,
+				1370FBCB2A648E0400C66BAF /* SetOperations.swift in Sources */,
 				13FE2F922A56A99D001E201C /* MainController.swift in Sources */,
 				13F8239F2A5768D800A9F33D /* ArrayViewController.swift in Sources */,
 				13FE2F8E2A56A99D001E201C /* AppDelegate.swift in Sources */,
