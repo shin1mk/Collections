@@ -6,18 +6,20 @@
 import SnapKit
 import UIKit
 
-enum State {
-    case start
-    case loading
-    case complete
-}
+
 
 final class ArrayViewController: UIViewController {
+    enum State {
+        case start
+        case loading
+        case complete
+    }
     //MARK: - Properties
     private let cellIdentifier = "CollectionViewCell"
     private let combinedCellIdentifier = "CombinedCollectionViewCell"
     private var combinedCells: [UICollectionViewCell] = []
     private var cellStates: [IndexPath: (state: State, result: String)] = [:]
+    private var containerView: UIView?
 
     private let cellTitles = [
         "Insert 1000 elements at the beginning of the array one-by-one",
@@ -100,6 +102,7 @@ final class ArrayViewController: UIViewController {
         setupCollectionViewDataSourceAndDelegate()
         registerCollectionViewCells()
         setupCollectionViewConstraints()
+
     }
     
     private func setupCollectionViewDataSourceAndDelegate() {
@@ -157,24 +160,24 @@ extension ArrayViewController: UICollectionViewDataSource, UICollectionViewDeleg
             }
         }
         
-        switch state {
-        case .start:
-            titleLabel.text = "Create Int array with 10_000_000 elements"
-            titleLabel.frame = containerView.bounds
-            containerView.addSubview(titleLabel)
-        case .loading:
-            titleLabel.text = ""
-            let activityIndicator = addActivityIndicator(to: cell)
-            activityIndicator.startAnimating()
-        case .complete:
-            let resultLabel = UILabel()
-            resultLabel.text = "Execution time: \(generateIntArray()) seconds"
-            resultLabel.font = UIFont.systemFont(ofSize: 18)
-            resultLabel.textColor = .systemBlue
-            resultLabel.textAlignment = .center
-            resultLabel.frame = containerView.bounds
-            containerView.addSubview(resultLabel)
-        }
+            switch state {
+            case .start:
+                titleLabel.text = "Create Int array with 10_000_000 elements"
+                titleLabel.frame = containerView.bounds
+                containerView.addSubview(titleLabel)
+            case .loading:
+                titleLabel.text = ""
+                let activityIndicator = addActivityIndicator(to: cell)
+                activityIndicator.startAnimating()
+            case .complete:
+                let resultLabel = UILabel()
+                resultLabel.text = "Execution time: \(generateIntArray()) seconds"
+                resultLabel.font = UIFont.systemFont(ofSize: 18)
+                resultLabel.textColor = .systemBlue
+                resultLabel.textAlignment = .center
+                resultLabel.frame = containerView.bounds
+                containerView.addSubview(resultLabel)
+            }
         
         cell.contentView.addSubview(containerView)
         return cell
@@ -186,6 +189,9 @@ extension ArrayViewController: UICollectionViewDataSource, UICollectionViewDeleg
         cell.layer.borderColor = UIColor.customBorderColor.cgColor
         cell.layer.borderWidth = 1.0
 
+        cell.isUserInteractionEnabled = true
+
+        
         let titlesPerSection = 2 // Each section has 2 items
         let titlesIndex = (indexPath.section - 1) * titlesPerSection + indexPath.item
         
@@ -266,30 +272,36 @@ extension ArrayViewController: UICollectionViewDataSource, UICollectionViewDeleg
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.section == 0 && indexPath.item == 0 && state != .complete {
-            state = .loading
-            DispatchQueue.global().async {
-                let executionTimeFormatted = self.generateIntArray()
-                print("Execution time: \(executionTimeFormatted) seconds")
-                DispatchQueue.main.async {
-                    self.cellStates[indexPath] = (.complete, "Execution time: \(executionTimeFormatted) seconds")
-                    self.state = .complete
-                }
-            }
-        } else if indexPath.section == 1 && indexPath.item == 0 {
-            state = .loading
-            
-            DispatchQueue.global().async {
-                let executionTimeFormatted = self.insertElementsToStartOfArray()
-                print("Execution time: \(executionTimeFormatted) seconds")
+        guard let cell = collectionView.cellForItem(at: indexPath) else { return }
 
-                DispatchQueue.main.async {
-                    self.cellStates[indexPath] = (.complete, "Execution time: \(executionTimeFormatted) seconds")
-                    self.state = .complete
-                }
+        
+        switch cellStates[indexPath]?.state {
+        case .start:
+            titleLabel.text = "Create Int array with 10_000_000 elements"
+            titleLabel.frame = containerView?.bounds ?? .zero
+            if let containerView = self.containerView {
+                containerView.addSubview(titleLabel)
             }
+        case .loading:
+            titleLabel.text = ""
+            let activityIndicator = addActivityIndicator(to: cell)
+            activityIndicator.startAnimating()
+        case .complete:
+            let resultLabel = UILabel()
+            resultLabel.text = "Execution time: \(generateIntArray()) seconds"
+            resultLabel.font = UIFont.systemFont(ofSize: 18)
+            resultLabel.textColor = .systemBlue
+            resultLabel.textAlignment = .center
+            resultLabel.frame = containerView?.bounds ?? .zero
+            if let containerView = self.containerView {
+                containerView.addSubview(resultLabel)
+            }
+        default:
+            break
         }
     }
+
+
 
 
     
