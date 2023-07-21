@@ -3,27 +3,16 @@
 //  Collections
 //
 //  Created by SHIN MIKHAIL on 07.07.2023.
-import SnapKit
+
 import UIKit
-
-
+import SnapKit
 
 final class ArrayViewController: UIViewController {
-    enum State {
-        case start
-        case loading
-        case complete
-    }
-    //MARK: - Properties
-    private let cellIdentifier = "CollectionViewCell"
-    private let combinedCellIdentifier = "CombinedCollectionViewCell"
-    private var combinedCells: [UICollectionViewCell] = []
-    private var cellStates: [IndexPath: (state: State, result: String)] = [:]
-    private var containerView: UIView?
-
-    private let cellTitles = [
+    //MARK: Properties
+    private var firstCellArray = ["Create Int array with 10_000_000 elements"]
+    private var secondCellsArray = [
         "Insert 1000 elements at the beginning of the array one-by-one",
-        "Insert 1000 elements at the beginning of the array all at once",
+        "Insert 1000 elements at the beginning of the array at once",
         "Insert 1000 elements in the middle of the array one-by-one",
         "Insert 1000 elements in the middle of the array all at once",
         "Insert 1000 elements in the end of the array one-by-one",
@@ -32,8 +21,8 @@ final class ArrayViewController: UIViewController {
         "Remove 1000 elements at the beginning of the array",
         "Remove 1000 elements in the middle of the array one-by-one",
         "Remove 1000 elements in the middle of the array",
-        "Remove 1000 elements at the end of the array end by-one-one",
-        "Remove 1000 elements at the end of the array"
+        "Remove 1000 elements at the end of of the array by-one-one",
+        "Remove 1000 elements at the end the array",
     ]
     private let backButton: UIButton = {
         let button = UIButton()
@@ -41,332 +30,156 @@ final class ArrayViewController: UIViewController {
         button.setImage(arrowImage, for: .normal)
         button.setTitle("Collections", for: .normal)
         button.setTitleColor(.systemBlue, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 20)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 22)
         button.contentHorizontalAlignment = .left
         return button
     }()
-    private let navigationBarLabel: UILabel = {
-        let navBarTitle = UILabel()
-        navBarTitle.text = "Array: 5696"
-        navBarTitle.font = UIFont.boldSystemFont(ofSize: 18)
-        navBarTitle.textColor = .black
-        navBarTitle.textAlignment = .center
-        return navBarTitle
-    }()
     private let titleLabel: UILabel = {
         let titleLabel = UILabel()
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 16)
-        titleLabel.textColor = .systemBlue
+        titleLabel.text = "Array: 5696"
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        titleLabel.textColor = .black
         titleLabel.textAlignment = .center
         return titleLabel
     }()
-    private let collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        layout.minimumLineSpacing = 0
-        layout.minimumInteritemSpacing = 0
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .white
-        return collectionView
-    }()
-    private var state: State = .start {
-        didSet {
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
-            }
-        }
-    }
-    //MARK: - Lifecycle
+    private var collectionView: UICollectionView!
+    //MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
         setupCollectionView()
+        setupConstraint()
     }
-    
+    //MARK: Navigation bar
     private func setupNavigationBar() {
-        setupBackButtonTarget()
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backButton)
-        navigationItem.titleView = navigationBarLabel
-    }
-    
-    private func setupBackButtonTarget() {
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backButton)
+        navigationItem.titleView = titleLabel
     }
     
     @objc private func backButtonTapped() {
         navigationController?.popViewController(animated: true)
     }
-    
+    // MARK: Collection View
     private func setupCollectionView() {
-        setupCollectionViewDataSourceAndDelegate()
-        registerCollectionViewCells()
-        setupCollectionViewConstraints()
+        let layout = UICollectionViewFlowLayout()
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .white
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.register(ArrayCollectionViewCell.self, forCellWithReuseIdentifier: "ArrayCollectionViewCell")
 
     }
     
-    private func setupCollectionViewDataSourceAndDelegate() {
-        collectionView.dataSource = self
-        collectionView.delegate = self
-    }
-    
-    private func registerCollectionViewCells() {
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: cellIdentifier)
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: combinedCellIdentifier)
-    }
-    
-    private func setupCollectionViewConstraints() {
+    private func setupConstraint() {
         view.addSubview(collectionView)
         collectionView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
     }
-} // ArrayViewController
-//MARK: - extension arrayViewController
-extension ArrayViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 7
+    //MARK: generateIntArrayWithSize в отдельный метод
+    func generateIntArray() -> String {
+        var array = [Int]()
+        let start = CACurrentMediaTime()
+        for i in 0..<10_000_000 {
+            array.append(i)
+        }
+        let end = CACurrentMediaTime()
+        let executionTime = end - start
+        let executionTimeFormatted = String(format: "%.2f", executionTime)
+        return executionTimeFormatted
     }
-    
+} // end of class ArrayViewController {
+// MARK: - Data Source
+extension ArrayViewController: UICollectionViewDataSource {
+    //MARK: Number of items
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-          if section == 0 {
-              return 1 // Always show the first cell (generateIntArray cell)
-          } else {
-              return state == .complete ? cellTitles.count / 2 : 0 // Show other cells only if state is .complete
-          }
-      }
-    
+        return firstCellArray.count
+    }
+    //MARK: CellForItemAt
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if indexPath.section == 0 && indexPath.item == 0 {
-            return configureCombinedCell(collectionView: collectionView, indexPath: indexPath)
-        } else {
-            return configureRegularCell(collectionView: collectionView, indexPath: indexPath)
-        }
-    }
-    // первая ячейка
-    private func configureCombinedCell(collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: combinedCellIdentifier, for: indexPath)
-        cell.backgroundColor = .backgroundColor
-        cell.layer.borderColor = UIColor.customBorderColor.cgColor
-        cell.layer.borderWidth = 1.0
-        
-        let containerView = UIView(frame: CGRect(x: 0, y: 0, width: collectionView.bounds.width, height: cell.bounds.height))
-        
-        if combinedCells.isEmpty {
-            // Create and add cells to combinedCells
-            for _ in 0..<2 {
-                let subCell = UICollectionViewCell()
-                combinedCells.append(subCell)
-            }
-        }
-        
-            switch state {
-            case .start:
-                titleLabel.text = "Create Int array with 10_000_000 elements"
-                titleLabel.frame = containerView.bounds
-                containerView.addSubview(titleLabel)
-            case .loading:
-                titleLabel.text = ""
-                let activityIndicator = addActivityIndicator(to: cell)
-                activityIndicator.startAnimating()
-            case .complete:
-                let resultLabel = UILabel()
-                resultLabel.text = "Execution time: \(generateIntArray()) seconds"
-                resultLabel.font = UIFont.systemFont(ofSize: 18)
-                resultLabel.textColor = .systemBlue
-                resultLabel.textAlignment = .center
-                resultLabel.frame = containerView.bounds
-                containerView.addSubview(resultLabel)
-            }
-        
-        cell.contentView.addSubview(containerView)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ArrayCollectionViewCell", for: indexPath) as! ArrayCollectionViewCell
+        cell.textToShow = firstCellArray[indexPath.row]
+
         return cell
     }
-    // остальные ячейки
-    private func configureRegularCell(collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath)
-        cell.backgroundColor = .backgroundColor
-        cell.layer.borderColor = UIColor.customBorderColor.cgColor
-        cell.layer.borderWidth = 1.0
-
-        cell.isUserInteractionEnabled = true
-
-        
-        let titlesPerSection = 2 // Each section has 2 items
-        let titlesIndex = (indexPath.section - 1) * titlesPerSection + indexPath.item
-        
-        if titlesIndex >= 0 && titlesIndex < cellTitles.count {
-            let title = cellTitles[titlesIndex]
-            addTitleLabel(to: cell, withTitle: title)
+}
+// MARK: - DidSelect
+extension ArrayViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? ArrayCollectionViewCell else {
+            return
         }
-        
-        if let (state, result) = cellStates[indexPath] {
-            switch state {
-            case .start:
-                // Show the cell content as it was before
-                cell.contentView.isHidden = false
-                cell.contentView.subviews.forEach { subview in
-                    if subview is UIActivityIndicatorView || subview is UILabel {
-                        subview.removeFromSuperview()
-                    }
-                }
-            case .loading:
-                // Show the activity indicator
-                let activityIndicator = addActivityIndicator(to: cell)
-                activityIndicator.startAnimating()
-            case .complete:
-                // Show the result
-                let resultLabel = UILabel(frame: cell.bounds)
-                resultLabel.font = UIFont.systemFont(ofSize: 14)
-                resultLabel.textColor = .systemBlue
-                resultLabel.textAlignment = .center
-                resultLabel.text = result
-                resultLabel.numberOfLines = 0
-                cell.contentView.subviews.forEach { subview in
-                    if subview is UIActivityIndicatorView || subview is UILabel {
-                        subview.removeFromSuperview()
-                    }
-                }
-                cell.contentView.addSubview(resultLabel)
-            }
+        switch indexPath.item {
+        case 0:
+            print("it’s 0")
+            cell.textToShow = "State 0"
+        case 1:
+            print("it’s 1")
+            cell.textToShow = "State 1"
+        case 2:
+            print("it’s 2")
+            cell.textToShow = "State 2"
+        case 3:
+            print("it’s 3")
+            cell.textToShow = "State 3"
+        case 4:
+            print("it’s 4")
+            cell.textToShow = "State 4"
+        case 5:
+            print("it’s 5")
+            cell.textToShow = "State 5"
+        case 6:
+            print("it’s 6")
+            cell.textToShow = "State 6"
+        case 7:
+            print("it’s 7")
+            cell.textToShow = "State 7"
+        case 8:
+            print("it’s 8")
+            cell.textToShow = "State 8"
+        case 9:
+            print("it’s 9")
+            cell.textToShow = "State 9"
+        case 10:
+            print("it’s 10")
+            cell.textToShow = "State 10"
+        case 11:
+            print("it’s 11")
+            cell.textToShow = "State 11"
+        case 12:
+            print("it’s 12")
+            cell.textToShow = "State 12"
+        default:
+            print("oups")
         }
-        
-        return cell
+        // 1 раз добавим second в first
+        if firstCellArray.count <= 1 {
+            firstCellArray.append(contentsOf: secondCellsArray)
+            collectionView.reloadData()
+        }
     }
+}
 
-    
-    
-    private func addTitleLabel(to cell: UICollectionViewCell, withTitle title: String) {
-        cell.contentView.subviews.forEach { subview in
-            if subview is UILabel {
-                subview.removeFromSuperview()
-            }
-        }
-        let titleLabel = UILabel(frame: cell.bounds)
-        titleLabel.font = UIFont.systemFont(ofSize: 14)
-        titleLabel.textColor = .systemBlue
-        titleLabel.textAlignment = .center
-        titleLabel.text = title
-        titleLabel.numberOfLines = 0
-        cell.contentView.addSubview(titleLabel)
-    }
-    
+//MARK: FlowLayout настраиваем размер и отступы
+extension ArrayViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let availableWidth = collectionView.bounds.width
-        let itemWidth: CGFloat
-        let itemHeight: CGFloat = 105
-        if indexPath.section == 0 && indexPath.item == 0 {
-            itemWidth = availableWidth
+        if indexPath.row == 0 {
+            return CGSize(width: collectionView.bounds.width, height: 100)
         } else {
-            itemWidth = availableWidth / 2
+            return CGSize(width: collectionView.bounds.width / 2, height: 100)
         }
-        return CGSize(width: itemWidth, height: itemHeight)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) else { return }
-
-        
-        switch cellStates[indexPath]?.state {
-        case .start:
-            titleLabel.text = "Create Int array with 10_000_000 elements"
-            titleLabel.frame = containerView?.bounds ?? .zero
-            if let containerView = self.containerView {
-                containerView.addSubview(titleLabel)
-            }
-        case .loading:
-            titleLabel.text = ""
-            let activityIndicator = addActivityIndicator(to: cell)
-            activityIndicator.startAnimating()
-        case .complete:
-            let resultLabel = UILabel()
-            resultLabel.text = "Execution time: \(generateIntArray()) seconds"
-            resultLabel.font = UIFont.systemFont(ofSize: 18)
-            resultLabel.textColor = .systemBlue
-            resultLabel.textAlignment = .center
-            resultLabel.frame = containerView?.bounds ?? .zero
-            if let containerView = self.containerView {
-                containerView.addSubview(resultLabel)
-            }
-        default:
-            break
-        }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0.5
     }
-
-
-
-
-    
-    private func insertElementsToStartOfArray() -> String {
-        var array = [Int]()
-        let start = CACurrentMediaTime()
-
-        // Генерируем массив с 10_000_000 элементов, как в вашей функции generateIntArray()
-        for i in 0..<10_000_000 {
-            array.append(i)
-        }
-
-        // Вставляем 1000 элементов в начало массива по одному
-        for i in (0..<1000).reversed() {
-            array.insert(i, at: 0)
-        }
-
-        let end = CACurrentMediaTime()
-        let executionTime = end - start
-        let executionTimeFormatted = String(format: "%.2f", executionTime)
-        return executionTimeFormatted
-    }
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    private func generateIntArray() -> String {
-        var array = [Int]()
-        let start = CACurrentMediaTime()
-        for i in 0..<10_000_000 {
-            array.append(i)
-        }
-        let end = CACurrentMediaTime()
-        let executionTime = end - start
-        let executionTimeFormatted = String(format: "%.2f", executionTime)
-        return executionTimeFormatted
-    }
-    
-    private func addActivityIndicator(to cell: UICollectionViewCell) -> UIActivityIndicatorView {
-        let activityIndicator = UIActivityIndicatorView(style: .medium)
-        activityIndicator.color = .darkGray
-        activityIndicator.startAnimating()
-        cell.contentView.addSubview(activityIndicator)
-        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            activityIndicator.centerXAnchor.constraint(equalTo: cell.centerXAnchor),
-            activityIndicator.centerYAnchor.constraint(equalTo: cell.centerYAnchor)
-        ])
-        return activityIndicator
-    }
-} // extension
-//MARK: - Colors
+}
+//MARK: Colors
 extension UIColor {
     static let backgroundColor = UIColor(red: 218/255, green: 218/255, blue: 222/255, alpha: 1.0)
     static let customBorderColor = UIColor(red: 206/255, green: 206/255, blue: 209/255, alpha: 1.0)

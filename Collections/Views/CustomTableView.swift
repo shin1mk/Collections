@@ -8,19 +8,15 @@
 import UIKit
 
 class CustomTableView: UITableView, UITableViewDataSource, UITableViewDelegate {
-    weak var presentingViewController: UIViewController?
-    
-    func setPresentingViewController(_ viewController: UIViewController) {
-        self.presentingViewController = viewController
-    }
-    //MARK: initialize
+    var presentingViewController: UIViewController?
+
     init() {
         super.init(frame: .zero, style: .plain)
         configureTableView()
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        return nil
     }
     //MARK: Configure Table View
     func configureTableView() {
@@ -30,6 +26,10 @@ class CustomTableView: UITableView, UITableViewDataSource, UITableViewDelegate {
         separatorColor = .lightGray
         register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         separatorInset = .zero
+    }
+    
+    func setPresentingViewController(_ viewController: UIViewController) {
+        self.presentingViewController = viewController
     }
     //MARK: UITable View Data Source
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
