@@ -12,7 +12,7 @@ final class ArrayCollectionViewCell: UICollectionViewCell {
     enum AppState {
         case start
         case loading
-        case complete(result: String)
+        case complete(executionTime: String)
     }
     var appState: AppState = .start {
          didSet {
@@ -76,13 +76,12 @@ final class ArrayCollectionViewCell: UICollectionViewCell {
             activityIndicator.isHidden = false
             activityIndicator.startAnimating()
             break
-        case .complete(let result):
+        case .complete(let executionTime):
             labelCell.isHidden = false
-            labelCell.text = "time \(result)"
+            labelCell.text = "Execution time: \(executionTime)"
             activityIndicator.isHidden = true
             activityIndicator.stopAnimating()
             break
         }
     }
-    
 } // end class ArrayCollectionViewCell

@@ -68,7 +68,6 @@ final class ArrayViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(ArrayCollectionViewCell.self, forCellWithReuseIdentifier: "ArrayCollectionViewCell")
-
     }
     
     private func setupConstraint() {
@@ -76,18 +75,6 @@ final class ArrayViewController: UIViewController {
         collectionView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-    }
-    //MARK: generateIntArrayWithSize в отдельный метод
-    func generateIntArray() -> String {
-        var array = [Int]()
-        let start = CACurrentMediaTime()
-        for i in 0..<10_000_000 {
-            array.append(i)
-        }
-        let end = CACurrentMediaTime()
-        let executionTime = end - start
-        let executionTimeFormatted = String(format: "%.2f", executionTime)
-        return executionTimeFormatted
     }
 } // end of class ArrayViewController {
 // MARK: - Data Source
@@ -100,7 +87,6 @@ extension ArrayViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ArrayCollectionViewCell", for: indexPath) as! ArrayCollectionViewCell
         cell.textToShow = firstCellArray[indexPath.row]
-
         return cell
     }
 }
@@ -113,45 +99,201 @@ extension ArrayViewController: UICollectionViewDelegate {
         switch indexPath.item {
         case 0:
             print("it’s 0")
-            cell.textToShow = "State 0"
+            cell.appState = .start
+            cell.appState = .loading
+            
+            // Создаем операцию и добавляем ее в OperationQueue
+            let operationQueue = OperationQueue()
+            operationQueue.addOperation {
+                let executionTime = generateIntArray()
+                
+                // Обновляем состояние ячейки в главном потоке
+                DispatchQueue.main.async {
+                    cell.appState = .complete(executionTime: executionTime)
+                }
+            }
         case 1:
             print("it’s 1")
-            cell.textToShow = "State 1"
+            cell.appState = .start
+            cell.appState = .loading
+            
+            // Создаем операцию и добавляем ее в OperationQueue
+            let operationQueue = OperationQueue()
+            operationQueue.addOperation {
+                let executionTime = insertElementsAtBeginningOneByOne()
+                
+                // Обновляем состояние ячейки в главном потоке
+                DispatchQueue.main.async {
+                    cell.appState = .complete(executionTime: executionTime)
+                }
+            }
         case 2:
             print("it’s 2")
-            cell.textToShow = "State 2"
+            cell.appState = .start
+            cell.appState = .loading
+            
+            // Создаем операцию и добавляем ее в OperationQueue
+            let operationQueue = OperationQueue()
+            operationQueue.addOperation {
+                let executionTime = insertElementsAtBeginningAllAtOnce()
+                
+                // Обновляем состояние ячейки в главном потоке
+                DispatchQueue.main.async {
+                    cell.appState = .complete(executionTime: executionTime)
+                }
+            }
         case 3:
             print("it’s 3")
-            cell.textToShow = "State 3"
+            cell.appState = .start
+            cell.appState = .loading
+            
+            // Создаем операцию и добавляем ее в OperationQueue
+            let operationQueue = OperationQueue()
+            operationQueue.addOperation {
+                let executionTime = insertElementsInMiddleOneByOne()
+                
+                // Обновляем состояние ячейки в главном потоке
+                DispatchQueue.main.async {
+                    cell.appState = .complete(executionTime: executionTime)
+                }
+            }
         case 4:
             print("it’s 4")
-            cell.textToShow = "State 4"
+            cell.appState = .start
+            cell.appState = .loading
+            
+            // Создаем операцию и добавляем ее в OperationQueue
+            let operationQueue = OperationQueue()
+            operationQueue.addOperation {
+                let executionTime = insertElementsInMiddleAllAtOnce()
+                
+                // Обновляем состояние ячейки в главном потоке
+                DispatchQueue.main.async {
+                    cell.appState = .complete(executionTime: executionTime)
+                }
+            }
         case 5:
             print("it’s 5")
-            cell.textToShow = "State 5"
+            cell.appState = .start
+            cell.appState = .loading
+            
+            // Создаем операцию и добавляем ее в OperationQueue
+            let operationQueue = OperationQueue()
+            operationQueue.addOperation {
+                let executionTime = appendElementsOneByOne()
+                
+                // Обновляем состояние ячейки в главном потоке
+                DispatchQueue.main.async {
+                    cell.appState = .complete(executionTime: executionTime)
+                }
+            }
         case 6:
             print("it’s 6")
-            cell.textToShow = "State 6"
+            cell.appState = .start
+            cell.appState = .loading
+            
+            // Создаем операцию и добавляем ее в OperationQueue
+            let operationQueue = OperationQueue()
+            operationQueue.addOperation {
+                let executionTime = appendElementsAllAtOnce()
+                
+                // Обновляем состояние ячейки в главном потоке
+                DispatchQueue.main.async {
+                    cell.appState = .complete(executionTime: executionTime)
+                }
+            }
         case 7:
             print("it’s 7")
-            cell.textToShow = "State 7"
+            cell.appState = .start
+            cell.appState = .loading
+            
+            // Создаем операцию и добавляем ее в OperationQueue
+            let operationQueue = OperationQueue()
+            operationQueue.addOperation {
+                let executionTime = removeElementsFromBeginningOneByOne()
+                
+                // Обновляем состояние ячейки в главном потоке
+                DispatchQueue.main.async {
+                    cell.appState = .complete(executionTime: executionTime)
+                }
+            }
         case 8:
             print("it’s 8")
-            cell.textToShow = "State 8"
+            cell.appState = .start
+            cell.appState = .loading
+            
+            // Создаем операцию и добавляем ее в OperationQueue
+            let operationQueue = OperationQueue()
+            operationQueue.addOperation {
+                let executionTime = removeElementsFromBeginningAllAtOnce()
+                
+                // Обновляем состояние ячейки в главном потоке
+                DispatchQueue.main.async {
+                    cell.appState = .complete(executionTime: executionTime)
+                }
+            }
         case 9:
             print("it’s 9")
-            cell.textToShow = "State 9"
+            cell.appState = .start
+            cell.appState = .loading
+            
+            // Создаем операцию и добавляем ее в OperationQueue
+            let operationQueue = OperationQueue()
+            operationQueue.addOperation {
+                let executionTime = removeElementsFromMiddleOneByOne()
+                
+                // Обновляем состояние ячейки в главном потоке
+                DispatchQueue.main.async {
+                    cell.appState = .complete(executionTime: executionTime)
+                }
+            }
         case 10:
             print("it’s 10")
-            cell.textToShow = "State 10"
+            cell.appState = .start
+            cell.appState = .loading
+            
+            // Создаем операцию и добавляем ее в OperationQueue
+            let operationQueue = OperationQueue()
+            operationQueue.addOperation {
+                let executionTime = removeElementsFromMiddleAllAtOnce()
+                
+                // Обновляем состояние ячейки в главном потоке
+                DispatchQueue.main.async {
+                    cell.appState = .complete(executionTime: executionTime)
+                }
+            }
         case 11:
             print("it’s 11")
-            cell.textToShow = "State 11"
+            cell.appState = .start
+            cell.appState = .loading
+            
+            // Создаем операцию и добавляем ее в OperationQueue
+            let operationQueue = OperationQueue()
+            operationQueue.addOperation {
+                let executionTime = removeElementsFromEndOneByOne()
+                
+                // Обновляем состояние ячейки в главном потоке
+                DispatchQueue.main.async {
+                    cell.appState = .complete(executionTime: executionTime)
+                }
+            }
         case 12:
             print("it’s 12")
-            cell.textToShow = "State 12"
+            cell.appState = .start
+            cell.appState = .loading
+            
+            // Создаем операцию и добавляем ее в OperationQueue
+            let operationQueue = OperationQueue()
+            operationQueue.addOperation {
+                let executionTime = removeElementsFromEndAllAtOnce()
+                
+                // Обновляем состояние ячейки в главном потоке
+                DispatchQueue.main.async {
+                    cell.appState = .complete(executionTime: executionTime)
+                }
+            }
         default:
-            print("oups")
+            print("default")
         }
         // 1 раз добавим second в first
         if firstCellArray.count <= 1 {
