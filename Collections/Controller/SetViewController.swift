@@ -202,5 +202,4 @@ final class SetViewController: UIViewController {
         let uniqueCharactersString = SetOperations.findUniqueCharacters(textFull: textFull, textCharacters: textCharacters)
             uniqueResultLabel.text = uniqueCharactersString
     }
-
-} // setViewController
+}

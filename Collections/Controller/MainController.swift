@@ -10,7 +10,7 @@ import SnapKit
 
 final class MainController: UIViewController {
     //MARK: Properties
-    private var tableView: CustomTableView!
+    private var tableView: CollectionViewTable!
     private let titleLabel: UILabel = {
         let title = UILabel()
         title.text = "Collections"
@@ -31,8 +31,7 @@ final class MainController: UIViewController {
     }
 
     private func setupTableView() {
-        tableView = CustomTableView()
-        tableView.setPresentingViewController(self)
+        tableView = CollectionViewTable()
     }
     //MARK: Constraints
     private func setupConstraints() {
@@ -54,11 +53,10 @@ final class MainController: UIViewController {
         }
     }
 }
-//MARK: UITableViewDelegate
+//MARK: didSelectRowAt
 extension MainController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
         let selectedRow = indexPath.row
         var newViewController: UIViewController?
         

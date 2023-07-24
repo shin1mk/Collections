@@ -8,18 +8,17 @@ import UIKit
 import SnapKit
 
 final class ArrayCollectionViewCell: UICollectionViewCell {
-    //MARK: appState
-    enum AppState {
-        case start
-        case loading
-        case complete(executionTime: String)
-    }
+    //MARK: UI elements
     var appState: AppState = .start {
-         didSet {
-             updateUI(appState)
-         }
-     }
-    //MARK: Properties
+        didSet {
+            updateUI(appState)
+        }
+    }
+    var textToShow: String = "" {
+        didSet {
+            labelCell.text = textToShow
+        }
+    }
     private let labelCell: UILabel = {
         let labelCell = UILabel()
         labelCell.font = UIFont.systemFont(ofSize: 16)
@@ -28,16 +27,9 @@ final class ArrayCollectionViewCell: UICollectionViewCell {
         labelCell.numberOfLines = 0
         return labelCell
     }()
-    var textToShow: String = "" {
-        didSet {
-            labelCell.text = textToShow
-        }
-    }
     private let activityIndicator: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView()
         activityIndicator.color = .gray
-        activityIndicator.hidesWhenStopped = true
-
         return activityIndicator
     }()
     //MARK: lifecycle
@@ -45,7 +37,6 @@ final class ArrayCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         setupConstraints()
     }
-    
     required init?(coder: NSCoder) {
         return nil
     }
@@ -63,25 +54,28 @@ final class ArrayCollectionViewCell: UICollectionViewCell {
             make.centerY.equalToSuperview()
         }
     }
-    //MARK: state
+    
     private func updateUI(_ appState: AppState) {
         switch appState {
         case .start:
-            labelCell.isHidden = false
-            activityIndicator.isHidden = true
-            activityIndicator.startAnimating()
             break
         case .loading:
             labelCell.isHidden = true
             activityIndicator.isHidden = false
             activityIndicator.startAnimating()
-            break
-        case .complete(let executionTime):
+        case .complete(let result):
             labelCell.isHidden = false
-            labelCell.text = "Execution time: \(executionTime)"
+            labelCell.text = "Execution time: \(result) sec"
             activityIndicator.isHidden = true
             activityIndicator.stopAnimating()
-            break
         }
     }
-} // end class ArrayCollectionViewCell
+}
+//MARK: State
+extension ArrayCollectionViewCell {
+    enum AppState {
+        case start
+        case loading
+        case complete(result: Double)
+    }
+}

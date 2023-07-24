@@ -1,5 +1,5 @@
 //
-//  CustomTableView.swift
+//  CollectionViewTable.swift
 //  Collections
 //
 //  Created by SHIN MIKHAIL on 06.07.2023.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CustomTableView: UITableView, UITableViewDataSource, UITableViewDelegate {
+class CollectionViewTable: UITableView, UITableViewDataSource, UITableViewDelegate {
     var presentingViewController: UIViewController?
 
     init() {
@@ -31,7 +31,7 @@ class CustomTableView: UITableView, UITableViewDataSource, UITableViewDelegate {
     func setPresentingViewController(_ viewController: UIViewController) {
         self.presentingViewController = viewController
     }
-    //MARK: UITable View Data Source
+    // numberOfRowsInSection
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3
     }
