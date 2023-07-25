@@ -77,7 +77,7 @@ final class ArrayViewController: UIViewController {
             make.edges.equalToSuperview()
         }
     }
-} // end of class ArrayViewController {
+}
 // MARK: - Data Source
 extension ArrayViewController: UICollectionViewDataSource {
     // Number of items
@@ -91,218 +91,7 @@ extension ArrayViewController: UICollectionViewDataSource {
         return cell
     }
 }
-// MARK: - DidSelect
-//extension ArrayViewController: UICollectionViewDelegate {
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        guard let cell = collectionView.cellForItem(at: indexPath) as? ArrayCollectionViewCell else {
-//            return
-//        }
-//        switch indexPath.item {
-//        case 0:
-//              cell.appState = .loading
-//              arrayOperations.generateIntArray { [weak self] time in
-//                  guard let self = self else { return }
-//                  self.firstCellArray.append(contentsOf: self.secondCellsArray)
-//                  cell.appState = .complete(executionTime: time)
-//                  DispatchQueue.main.async {
-//                      // Update textToShow with the contents of the firstCellArray
-//                      cell.textToShow = "Result: \(time)"
-//                      collectionView.reloadData()
-//                  }
-//              }
-//            //        case 1:
-////            print("it’s 1")
-////            cell.appState = .start
-////            cell.appState = .loading
-////
-////            // Создаем операцию и добавляем ее в OperationQueue
-////            let operationQueue = OperationQueue()
-////            operationQueue.addOperation {
-////                let executionTime = insertElementsAtBeginningOneByOne()
-////
-////                // Обновляем состояние ячейки в главном потоке
-////                DispatchQueue.main.async {
-////                    cell.appState = .complete(executionTime: executionTime)
-////                }
-////            }
-/////        case 1:
-//            cell.state = .loading
-//            self.arrayOperations.insertElementsBeginning1by1 { time in
-//                cell.state = .result(result: time)
-//                cell.isUserInteractionEnabled = false
 
-////        case 2:
-////            print("it’s 2")
-////            cell.appState = .start
-////            cell.appState = .loading
-////
-////            // Создаем операцию и добавляем ее в OperationQueue
-////            let operationQueue = OperationQueue()
-////            operationQueue.addOperation {
-////                let executionTime = insertElementsAtBeginningAllAtOnce()
-////
-////                // Обновляем состояние ячейки в главном потоке
-////                DispatchQueue.main.async {
-////                    cell.appState = .complete(executionTime: executionTime)
-////                }
-////            }
-////        case 3:
-////            print("it’s 3")
-////            cell.appState = .start
-////            cell.appState = .loading
-////
-////            // Создаем операцию и добавляем ее в OperationQueue
-////            let operationQueue = OperationQueue()
-////            operationQueue.addOperation {
-////                let executionTime = insertElementsInMiddleOneByOne()
-////
-////                // Обновляем состояние ячейки в главном потоке
-////                DispatchQueue.main.async {
-////                    cell.appState = .complete(executionTime: executionTime)
-////                }
-////            }
-////        case 4:
-////            print("it’s 4")
-////            cell.appState = .start
-////            cell.appState = .loading
-////
-////            // Создаем операцию и добавляем ее в OperationQueue
-////            let operationQueue = OperationQueue()
-////            operationQueue.addOperation {
-////                let executionTime = insertElementsInMiddleAllAtOnce()
-////
-////                // Обновляем состояние ячейки в главном потоке
-////                DispatchQueue.main.async {
-////                    cell.appState = .complete(executionTime: executionTime)
-////                }
-////            }
-////        case 5:
-////            print("it’s 5")
-////            cell.appState = .start
-////            cell.appState = .loading
-////
-////            // Создаем операцию и добавляем ее в OperationQueue
-////            let operationQueue = OperationQueue()
-////            operationQueue.addOperation {
-////                let executionTime = appendElementsOneByOne()
-////
-////                // Обновляем состояние ячейки в главном потоке
-////                DispatchQueue.main.async {
-////                    cell.appState = .complete(executionTime: executionTime)
-////                }
-////            }
-////        case 6:
-////            print("it’s 6")
-////            cell.appState = .start
-////            cell.appState = .loading
-////
-////            // Создаем операцию и добавляем ее в OperationQueue
-////            let operationQueue = OperationQueue()
-////            operationQueue.addOperation {
-////                let executionTime = appendElementsAllAtOnce()
-////
-////                // Обновляем состояние ячейки в главном потоке
-////                DispatchQueue.main.async {
-////                    cell.appState = .complete(executionTime: executionTime)
-////                }
-////            }
-////        case 7:
-////            print("it’s 7")
-////            cell.appState = .start
-////            cell.appState = .loading
-////
-////            // Создаем операцию и добавляем ее в OperationQueue
-////            let operationQueue = OperationQueue()
-////            operationQueue.addOperation {
-////                let executionTime = removeElementsFromBeginningOneByOne()
-////
-////                // Обновляем состояние ячейки в главном потоке
-////                DispatchQueue.main.async {
-////                    cell.appState = .complete(executionTime: executionTime)
-////                }
-////            }
-////        case 8:
-////            print("it’s 8")
-////            cell.appState = .start
-////            cell.appState = .loading
-////
-////            // Создаем операцию и добавляем ее в OperationQueue
-////            let operationQueue = OperationQueue()
-////            operationQueue.addOperation {
-////                let executionTime = removeElementsFromBeginningAllAtOnce()
-////
-////                // Обновляем состояние ячейки в главном потоке
-////                DispatchQueue.main.async {
-////                    cell.appState = .complete(executionTime: executionTime)
-////                }
-////            }
-////        case 9:
-////            print("it’s 9")
-////            cell.appState = .start
-////            cell.appState = .loading
-////
-////            // Создаем операцию и добавляем ее в OperationQueue
-////            let operationQueue = OperationQueue()
-////            operationQueue.addOperation {
-////                let executionTime = removeElementsFromMiddleOneByOne()
-////
-////                // Обновляем состояние ячейки в главном потоке
-////                DispatchQueue.main.async {
-////                    cell.appState = .complete(executionTime: executionTime)
-////                }
-////            }
-////        case 10:
-////            print("it’s 10")
-////            cell.appState = .start
-////            cell.appState = .loading
-////
-////            // Создаем операцию и добавляем ее в OperationQueue
-////            let operationQueue = OperationQueue()
-////            operationQueue.addOperation {
-////                let executionTime = removeElementsFromMiddleAllAtOnce()
-////
-////                // Обновляем состояние ячейки в главном потоке
-////                DispatchQueue.main.async {
-////                    cell.appState = .complete(executionTime: executionTime)
-////                }
-////            }
-////        case 11:
-////            print("it’s 11")
-////            cell.appState = .start
-////            cell.appState = .loading
-////
-////            // Создаем операцию и добавляем ее в OperationQueue
-////            let operationQueue = OperationQueue()
-////            operationQueue.addOperation {
-////                let executionTime = removeElementsFromEndOneByOne()
-////
-////                // Обновляем состояние ячейки в главном потоке
-////                DispatchQueue.main.async {
-////                    cell.appState = .complete(executionTime: executionTime)
-////                }
-////            }
-////        case 12:
-////            print("it’s 12")
-////            cell.appState = .start
-////            cell.appState = .loading
-////
-////            // Создаем операцию и добавляем ее в OperationQueue
-////            let operationQueue = OperationQueue()
-////            operationQueue.addOperation {
-////                let executionTime = removeElementsFromEndAllAtOnce()
-////
-////                // Обновляем состояние ячейки в главном потоке
-////                DispatchQueue.main.async {
-////                    cell.appState = .complete(executionTime: executionTime)
-////                }
-////            }
-//        default:
-//            print("default")
-//        }
-//        // 1 раз добавим second в first
-//    }
-//
-//}
 extension ArrayViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? ArrayCollectionViewCell else { return }
@@ -330,7 +119,7 @@ extension ArrayViewController: UICollectionViewDelegate {
             }
         case 3:
             cell.appState = .loading
-            self.arrayOperations.insertElementsMiddle1by1 { time in
+            self.arrayOperations.insertElementsMiddleOnebyOne { time in
                 cell.appState = .complete(result: time)
                 cell.isUserInteractionEnabled = false
             }
@@ -342,7 +131,7 @@ extension ArrayViewController: UICollectionViewDelegate {
             }
         case 5:
             cell.appState = .loading
-            self.arrayOperations.insertElementsEnd1by1 { time in
+            self.arrayOperations.insertElementsEndOnebyOne { time in
                 cell.appState = .complete(result: time)
                 cell.isUserInteractionEnabled = false
             }
@@ -354,7 +143,7 @@ extension ArrayViewController: UICollectionViewDelegate {
             }
         case 7:
             cell.appState = .loading
-            self.arrayOperations.removeElementsBeginning1by1 { time in
+            self.arrayOperations.removeElementsBeginningOnebyOne { time in
                 cell.appState = .complete(result: time)
                 cell.isUserInteractionEnabled = false
             }
@@ -366,7 +155,7 @@ extension ArrayViewController: UICollectionViewDelegate {
             }
         case 9:
             cell.appState = .loading
-            self.arrayOperations.removeElementsMiddle1by1 { time in
+            self.arrayOperations.removeElementsMiddleOnebyOne { time in
                 cell.appState = .complete(result: time)
                 cell.isUserInteractionEnabled = false
             }
@@ -378,7 +167,7 @@ extension ArrayViewController: UICollectionViewDelegate {
             }
         case 11:
             cell.appState = .loading
-            self.arrayOperations.removeElementsEnd1by1 { time in
+            self.arrayOperations.removeElementsEndOnebyOne { time in
                 cell.appState = .complete(result: time)
                 cell.isUserInteractionEnabled = false
             }
@@ -415,5 +204,4 @@ extension ArrayViewController: UICollectionViewDelegateFlowLayout {
 extension UIColor {
     static let backgroundColor = UIColor(red: 218/255, green: 218/255, blue: 222/255, alpha: 1.0)
     static let customBorderColor = UIColor(red: 206/255, green: 206/255, blue: 209/255, alpha: 1.0)
-    static let mainBackgroundColor = UIColor(red: 160/255, green: 160/255, blue: 160/255, alpha: 1)
 }

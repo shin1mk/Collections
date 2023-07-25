@@ -39,21 +39,20 @@ final class MainController: UIViewController {
         //title label
         view.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(view.snp.top).offset(90)
-            make.leading.equalTo(view).offset(20)
+            make.top.equalTo(view.snp.top).offset(Constraints.titleLabelTop)
+            make.leading.equalTo(view).offset(Constraints.titleLabelLeading)
             make.trailing.lessThanOrEqualTo(view)
         }
         //table view
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(30)
-            make.leading.equalTo(view.snp.leading)
-            make.trailing.equalTo(view.snp.trailing)
+            make.top.equalTo(titleLabel.snp.bottom).offset(Constraints.tableViewTop)
+            make.horizontalEdges.equalTo(view.snp.horizontalEdges)
             make.bottom.equalTo(view.snp.bottom)
         }
     }
 }
-//MARK: didSelectRowAt
+// MARK: extension
 extension MainController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
@@ -74,5 +73,13 @@ extension MainController: UITableViewDelegate {
         if let viewController = newViewController {
             self.navigationController?.pushViewController(viewController, animated: true)
         }
+    }
+}
+
+extension MainController {
+    enum Constraints {
+        static let titleLabelTop = 80
+        static let titleLabelLeading = 20
+        static let tableViewTop = 30
     }
 }

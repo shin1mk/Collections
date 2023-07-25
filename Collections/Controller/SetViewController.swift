@@ -10,6 +10,7 @@ import SnapKit
 
 final class SetViewController: UIViewController {
     //MARK: Properties
+    let setOperators = SetOperations()
     private let backButton: UIButton = {
         let button = UIButton()
         let arrowImage = UIImage(systemName: "chevron.left")?.withTintColor(.systemBlue, renderingMode: .alwaysOriginal)
@@ -112,54 +113,54 @@ final class SetViewController: UIViewController {
         // textFields
         view.addSubview(textFieldFull)
         textFieldFull.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(130)
-            make.horizontalEdges.equalToSuperview().inset(15)
-            make.height.equalTo(40)
+            make.top.equalToSuperview().offset(Constraints.textFieldFull)
+            make.horizontalEdges.equalToSuperview().inset(Constraints.horizontalEdges)
+            make.height.equalTo(Constraints.heightTextField)
         }
         view.addSubview(textFieldCharacters)
         textFieldCharacters.snp.makeConstraints { make in
-            make.top.equalTo(textFieldFull.snp.bottom).offset(20)
-            make.horizontalEdges.equalToSuperview().inset(15)
-            make.height.equalTo(40)
+            make.top.equalTo(textFieldFull.snp.bottom).offset(Constraints.textFieldCharacters)
+            make.horizontalEdges.equalToSuperview().inset(Constraints.horizontalEdges)
+            make.height.equalTo(Constraints.heightTextField)
         }
         // ShowMatchingCharacters
         view.addSubview(buttonShowMatchingCharacters)
         buttonShowMatchingCharacters.snp.makeConstraints { make in
-            make.top.equalTo(textFieldCharacters.snp.bottom).offset(20)
-            make.horizontalEdges.equalToSuperview().inset(15)
-            make.height.equalTo(40)
+            make.top.equalTo(textFieldCharacters.snp.bottom).offset(Constraints.textFieldCharacters)
+            make.horizontalEdges.equalToSuperview().inset(Constraints.horizontalEdges)
+            make.height.equalTo(Constraints.heightButton)
         }
         view.addSubview(matchingResultLabel)
         matchingResultLabel.snp.makeConstraints { make in
-            make.top.equalTo(buttonShowMatchingCharacters.snp.bottom).offset(10)
-            make.leading.trailing.equalToSuperview().inset(15)
-            make.height.equalTo(20)
+            make.top.equalTo(buttonShowMatchingCharacters.snp.bottom).offset(Constraints.topOffset)
+            make.horizontalEdges.equalToSuperview().inset(Constraints.horizontalEdges)
+            make.height.equalTo(Constraints.heightResultLabel)
         }
         // NonMatchingCharacters
         view.addSubview(buttonShowNonMatchingCharacters)
         buttonShowNonMatchingCharacters.snp.makeConstraints { make in
-            make.top.equalTo(matchingResultLabel.snp.bottom).offset(10)
-            make.horizontalEdges.equalToSuperview().inset(15)
-            make.height.equalTo(40)
+            make.top.equalTo(matchingResultLabel.snp.bottom).offset(Constraints.topOffset)
+            make.horizontalEdges.equalToSuperview().inset(Constraints.horizontalEdges)
+            make.height.equalTo(Constraints.heightButton)
         }
         view.addSubview(nonMatchResultLabel)
         nonMatchResultLabel.snp.makeConstraints { make in
-            make.top.equalTo(buttonShowNonMatchingCharacters.snp.bottom).offset(10)
-            make.leading.trailing.equalToSuperview().inset(15)
-            make.height.equalTo(20)
+            make.top.equalTo(buttonShowNonMatchingCharacters.snp.bottom).offset(Constraints.topOffset)
+            make.horizontalEdges.equalToSuperview().inset(Constraints.horizontalEdges)
+            make.height.equalTo(Constraints.heightResultLabel)
         }
         // uniqueResultLabel
         view.addSubview(buttonShowUniqueCharacters)
         buttonShowUniqueCharacters.snp.makeConstraints { make in
-            make.top.equalTo(nonMatchResultLabel.snp.bottom).offset(10)
-            make.leading.trailing.equalToSuperview().inset(15)
-            make.height.equalTo(40)
+            make.top.equalTo(nonMatchResultLabel.snp.bottom).offset(Constraints.topOffset)
+            make.horizontalEdges.equalToSuperview().inset(Constraints.horizontalEdges)
+            make.height.equalTo(Constraints.heightButton)
         }
         view.addSubview(uniqueResultLabel)
         uniqueResultLabel.snp.makeConstraints { make in
-            make.top.equalTo(buttonShowUniqueCharacters.snp.bottom).offset(10)
-            make.leading.trailing.equalToSuperview().inset(15)
-            make.height.equalTo(20)
+            make.top.equalTo(buttonShowUniqueCharacters.snp.bottom).offset(Constraints.topOffset)
+            make.horizontalEdges.equalToSuperview().inset(Constraints.horizontalEdges)
+            make.height.equalTo(Constraints.heightResultLabel)
         }
     }
     
@@ -183,15 +184,15 @@ final class SetViewController: UIViewController {
         guard let textFull = textFieldFull.text, let textCharacters = textFieldCharacters.text else {
             return
         }
-        let matchingCharactersString = SetOperations.findMatchingCharacters(textFull: textFull, textCharacters: textCharacters)
+        let matchingCharactersString = setOperators.findMatchingCharacters(textFull: textFull, textCharacters: textCharacters)
         matchingResultLabel.text = matchingCharactersString
     }
- 
+    
     @objc private func showNonMatchingCharacters() {
         guard let textFull = textFieldFull.text, let textCharacters = textFieldCharacters.text else {
             return
         }
-        let nonMatchingCharactersString = SetOperations.findNonMatchingCharacters(textFull: textFull, textCharacters: textCharacters)
+        let nonMatchingCharactersString = setOperators.findNonMatchingCharacters(textFull: textFull, textCharacters: textCharacters)
         nonMatchResultLabel.text = nonMatchingCharactersString
     }
     
@@ -199,7 +200,19 @@ final class SetViewController: UIViewController {
         guard let textFull = textFieldFull.text, let textCharacters = textFieldCharacters.text else {
             return
         }
-        let uniqueCharactersString = SetOperations.findUniqueCharacters(textFull: textFull, textCharacters: textCharacters)
-            uniqueResultLabel.text = uniqueCharactersString
+        let uniqueCharactersString = setOperators.findUniqueCharacters(textFull: textFull, textCharacters: textCharacters)
+        uniqueResultLabel.text = uniqueCharactersString
+    }
+}
+//MARK: Extension
+extension SetViewController {
+    enum Constraints {
+        static let heightResultLabel = 20
+        static let heightButton = 40
+        static let heightTextField = 40
+        static let horizontalEdges = 15
+        static let topOffset = 10
+        static let textFieldFull = 130
+        static let textFieldCharacters = 20
     }
 }

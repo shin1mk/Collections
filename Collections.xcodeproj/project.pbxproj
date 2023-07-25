@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		130A06A42A65889D00FEC7BD /* ArrayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130A06A32A65889D00FEC7BD /* ArrayCollectionViewCell.swift */; };
 		1328B3662A6A6F2A00DE62B7 /* ArrayOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1328B3652A6A6F2A00DE62B7 /* ArrayOperations.swift */; };
+		136B7A4C2A6F3EAF00CB9D55 /* DictionaryOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136B7A4B2A6F3EAF00CB9D55 /* DictionaryOperations.swift */; };
+		136B7A4E2A6F3EC800CB9D55 /* DictionaryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136B7A4D2A6F3EC800CB9D55 /* DictionaryViewCell.swift */; };
 		1370FBCB2A648E0400C66BAF /* SetOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1370FBCA2A648E0400C66BAF /* SetOperations.swift */; };
 		13F8239D2A575CEB00A9F33D /* CollectionViewTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F8239C2A575CEB00A9F33D /* CollectionViewTable.swift */; };
 		13F8239F2A5768D800A9F33D /* ArrayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F8239E2A5768D800A9F33D /* ArrayViewController.swift */; };
@@ -48,6 +50,8 @@
 /* Begin PBXFileReference section */
 		130A06A32A65889D00FEC7BD /* ArrayCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayCollectionViewCell.swift; sourceTree = "<group>"; };
 		1328B3652A6A6F2A00DE62B7 /* ArrayOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayOperations.swift; sourceTree = "<group>"; };
+		136B7A4B2A6F3EAF00CB9D55 /* DictionaryOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryOperations.swift; sourceTree = "<group>"; };
+		136B7A4D2A6F3EC800CB9D55 /* DictionaryViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryViewCell.swift; sourceTree = "<group>"; };
 		1370FBCA2A648E0400C66BAF /* SetOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetOperations.swift; sourceTree = "<group>"; };
 		13F8239C2A575CEB00A9F33D /* CollectionViewTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewTable.swift; sourceTree = "<group>"; };
 		13F8239E2A5768D800A9F33D /* ArrayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayViewController.swift; sourceTree = "<group>"; };
@@ -109,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				130A06A32A65889D00FEC7BD /* ArrayCollectionViewCell.swift */,
+				136B7A4D2A6F3EC800CB9D55 /* DictionaryViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -118,6 +123,7 @@
 			children = (
 				1370FBCA2A648E0400C66BAF /* SetOperations.swift */,
 				1328B3652A6A6F2A00DE62B7 /* ArrayOperations.swift */,
+				136B7A4B2A6F3EAF00CB9D55 /* DictionaryOperations.swift */,
 			);
 			path = Logic;
 			sourceTree = "<group>";
@@ -485,6 +491,8 @@
 				13F823A32A57691500A9F33D /* DictionaryViewController.swift in Sources */,
 				13FE2F982A56A99D001E201C /* Collections.xcdatamodeld in Sources */,
 				130A06A42A65889D00FEC7BD /* ArrayCollectionViewCell.swift in Sources */,
+				136B7A4C2A6F3EAF00CB9D55 /* DictionaryOperations.swift in Sources */,
+				136B7A4E2A6F3EC800CB9D55 /* DictionaryViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

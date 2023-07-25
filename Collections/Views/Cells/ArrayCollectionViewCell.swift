@@ -46,7 +46,7 @@ final class ArrayCollectionViewCell: UICollectionViewCell {
         addSubview(labelCell)
         labelCell.snp.makeConstraints { make in
             make.center.equalToSuperview()
-            make.horizontalEdges.equalToSuperview().inset(16)
+            make.horizontalEdges.equalToSuperview().inset(15)
         }
         addSubview(activityIndicator)
         activityIndicator.snp.makeConstraints { make in

@@ -8,12 +8,12 @@
 import Foundation
 import UIKit
 
-//MARK: generateIntArray
+
 final class ArrayOperations {
     private let queue = DispatchQueue(label: "ArrayOperations_queue_working", qos: .userInitiated)
     private var array = [Int]()
     private let array2 = [Int](0..<1_000)
-// новый вариант функции generateIntArray
+    //MARK: generateIntArray
     func generateIntArray(completion: ((Double) -> Void)?) {
         queue.async { [weak self] in
             guard let self else { return }
@@ -26,7 +26,7 @@ final class ArrayOperations {
             }
         }
     }
-    //MARK: row 1
+    //MARK: all methods
     func insertElementsBeginningOneByOne(completion: ((Double) -> Void)?) {
         queue.async { [weak self] in
             guard let self else { return }
@@ -40,6 +40,7 @@ final class ArrayOperations {
             }
         }
     }
+    // row 1.2
     func insertElementsBeginningAtOnce(completion: ((Double) -> Void)?) {
         queue.async { [weak self] in
             guard let self else { return }
@@ -51,9 +52,8 @@ final class ArrayOperations {
             }
         }
     }
-    //MARK: row2
-    
-    func insertElementsMiddle1by1(completion: ((Double) -> Void)?) {
+    // row 2.1
+    func insertElementsMiddleOnebyOne(completion: ((Double) -> Void)?) {
         queue.async { [weak self] in
             guard let self else { return }
             let start = CACurrentMediaTime()
@@ -66,7 +66,7 @@ final class ArrayOperations {
             }
         }
     }
-    
+    // row 2.2
     func insertElementsMiddleAtOnce(completion: ((Double) -> Void)?) {
         queue.async { [weak self] in
             guard let self else { return }
@@ -78,9 +78,8 @@ final class ArrayOperations {
             }
         }
     }
-    //MARK: row 3
-
-    func insertElementsEnd1by1(completion: ((Double) -> Void)?) {
+    // row 3.1
+    func insertElementsEndOnebyOne(completion: ((Double) -> Void)?) {
         queue.async { [weak self] in
             guard let self else { return }
             let start = CACurrentMediaTime()
@@ -94,7 +93,7 @@ final class ArrayOperations {
             }
         }
     }
-    
+    // row 3.2
     func insertElementsEndAtOnce(completion: ((Double) -> Void)?) {
         queue.async { [weak self] in
             guard let self else { return }
@@ -106,8 +105,8 @@ final class ArrayOperations {
             }
         }
     }
-    //MARK: row 4
-    func removeElementsBeginning1by1(completion: ((Double) -> Void)?) {
+    // row 4.1
+    func removeElementsBeginningOnebyOne(completion: ((Double) -> Void)?) {
         queue.async { [weak self] in
             guard let self else { return }
             let start = CACurrentMediaTime()
@@ -121,7 +120,7 @@ final class ArrayOperations {
             }
         }
     }
-    
+    // row 4.2
     func removeElementsBeginningAtOnce(completion: ((Double) -> Void)?) {
         queue.async { [weak self] in
             guard let self else { return }
@@ -133,9 +132,8 @@ final class ArrayOperations {
             }
         }
     }
-    //MARK: row 5
-
-    func removeElementsMiddle1by1(completion: ((Double) -> Void)?) {
+    // row 5.1
+    func removeElementsMiddleOnebyOne(completion: ((Double) -> Void)?) {
         queue.async { [weak self] in
             guard let self else { return }
             let start = CACurrentMediaTime()
@@ -149,7 +147,7 @@ final class ArrayOperations {
             }
         }
     }
-    
+    // row 5.2
     func removeElementsMiddleAtOnce(completion: ((Double) -> Void)?) {
         queue.async { [weak self] in
             guard let self else { return }
@@ -161,9 +159,8 @@ final class ArrayOperations {
             }
         }
     }
-    //MARK: row 6
-
-    func removeElementsEnd1by1(completion: ((Double) -> Void)?) {
+    // row 6.1
+    func removeElementsEndOnebyOne(completion: ((Double) -> Void)?) {
         queue.async { [weak self] in
             guard let self else { return }
             let start = CACurrentMediaTime()
@@ -177,7 +174,7 @@ final class ArrayOperations {
             }
         }
     }
-    
+    // row 6.2
     func removeElementsEndAtOnce(completion: ((Double) -> Void)?) {
         queue.async { [weak self] in
             guard let self else { return }
@@ -188,230 +185,5 @@ final class ArrayOperations {
                 completion?(result)
             }
         }
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    //старый вариант generateIntArray
-//    func generateIntArray(completion: ((Double) -> Void)?) {
-//        queue.async {
-//            let start = CACurrentMediaTime()
-//            for i in 0..<9_999_999 {
-//                self.array.append(i)
-//            }
-//            let end = CACurrentMediaTime()
-//            let executionTime = end - start
-//            let executionTimeFormatted = Double(executionTime, format: "%.2f")
-//            DispatchQueue.main.async {
-//                completion?(executionTimeFormatted)
-//            }
-//        }
-//    }
-    //MARK: - row 1
-    //Вставка в начало массива 1000 элементов (например, от 0 до 999) по одному
-    func insertElementsAtBeginningOneByOne() -> String {
-        var array = [Int]()
-        for i in 0..<10_000_000 {
-            array.append(i)
-        }
-        
-        let start = CACurrentMediaTime()
-        for i in 0..<1000 {
-            array.insert(i, at: 0)
-        }
-        let end = CACurrentMediaTime()
-        let executionTime = end - start
-        let executionTimeFormatted = String(format: "%.2f", executionTime)
-        return executionTimeFormatted
-    }
-    //Вставка в начало массива 1000 элементов (например, от 0 до 999) по сразу
-    func insertElementsAtBeginningAllAtOnce() -> String {
-        var array = [Int]()
-        for i in 0..<10_000_000 {
-            array.append(i)
-        }
-        
-        let start = CACurrentMediaTime()
-        let elementsToInsert = Array(0..<1000)
-        array.insert(contentsOf: elementsToInsert, at: 0)
-        let end = CACurrentMediaTime()
-        
-        let executionTime = end - start
-        let executionTimeFormatted = String(format: "%.2f", executionTime)
-        return executionTimeFormatted
-    }
-    //MARK: - row2
-    // Вставка в середину массива 1000 элементов по одному
-    func insertElementsInMiddleOneByOne() -> String {
-        var array = [Int]()
-        for i in 0..<10_000_000 {
-            array.append(i)
-        }
-        
-        let start = CACurrentMediaTime()
-        for i in 0..<1000 {
-            array.insert(i, at: array.count / 2)
-        }
-        let end = CACurrentMediaTime()
-        let executionTime = end - start
-        let executionTimeFormatted = String(format: "%.2f", executionTime)
-        return executionTimeFormatted
-    }
-    
-    // Вставка в середину массива 1000 элементов по сразу
-    func insertElementsInMiddleAllAtOnce() -> String {
-        var array = [Int]()
-        for i in 0..<10_000_000 {
-            array.append(i)
-        }
-        
-        let start = CACurrentMediaTime()
-        let elementsToInsert = Array(0..<1000)
-        array.insert(contentsOf: elementsToInsert, at: array.count / 2)
-        let end = CACurrentMediaTime()
-        
-        let executionTime = end - start
-        let executionTimeFormatted = String(format: "%.2f", executionTime)
-        return executionTimeFormatted
-    }
-    //MARK: - row3
-    // Добавление в конец массива 1000 элементов по одному
-    func appendElementsOneByOne() -> String {
-        var array = [Int]()
-        for i in 0..<10_000_000 {
-            array.append(i)
-        }
-        
-        let start = CACurrentMediaTime()
-        for i in 0..<1000 {
-            array.append(i)
-        }
-        let end = CACurrentMediaTime()
-        let executionTime = end - start
-        let executionTimeFormatted = String(format: "%.2f", executionTime)
-        return executionTimeFormatted
-    }
-    
-    // Добавление в конец массива 1000 элементов по сразу
-    func appendElementsAllAtOnce() -> String {
-        var array = [Int]()
-        for i in 0..<10_000_000 {
-            array.append(i)
-        }
-        
-        let start = CACurrentMediaTime()
-        let elementsToInsert = Array(0..<1000)
-        array.append(contentsOf: elementsToInsert)
-        let end = CACurrentMediaTime()
-        
-        let executionTime = end - start
-        let executionTimeFormatted = String(format: "%.2f", executionTime)
-        return executionTimeFormatted
-    }
-    //MARK: - row4
-    // Удаление из начала массива 1000 элементов по одному
-    func removeElementsFromBeginningOneByOne() -> String {
-        var array = [Int]()
-        for i in 0..<10_000_000 {
-            array.append(i)
-        }
-        
-        let start = CACurrentMediaTime()
-        for _ in 0..<1000 {
-            array.removeFirst()
-        }
-        let end = CACurrentMediaTime()
-        let executionTime = end - start
-        let executionTimeFormatted = String(format: "%.2f", executionTime)
-        return executionTimeFormatted
-    }
-    
-    // Удаление из начала массива 1000 элементов по сразу
-    func removeElementsFromBeginningAllAtOnce() -> String {
-        var array = [Int]()
-        for i in 0..<10_000_000 {
-            array.append(i)
-        }
-        
-        let start = CACurrentMediaTime()
-        array.removeFirst(1000)
-        let end = CACurrentMediaTime()
-        
-        let executionTime = end - start
-        let executionTimeFormatted = String(format: "%.2f", executionTime)
-        return executionTimeFormatted
-    }
-    //MARK: - row5
-    // Удаление из середины массива 1000 элементов по одному
-    func removeElementsFromMiddleOneByOne() -> String {
-        var array = [Int]()
-        for i in 0..<10_000_000 {
-            array.append(i)
-        }
-        
-        let start = CACurrentMediaTime()
-        let middleIndex = array.count / 2
-        for _ in 0..<1000 {
-            array.remove(at: middleIndex)
-        }
-        let end = CACurrentMediaTime()
-        let executionTime = end - start
-        let executionTimeFormatted = String(format: "%.2f", executionTime)
-        return executionTimeFormatted
-    }
-    
-    // Удаление из середины массива 1000 элементов по сразу
-    func removeElementsFromMiddleAllAtOnce() -> String {
-        var array = [Int]()
-        for i in 0..<10_000_000 {
-            array.append(i)
-        }
-        
-        let start = CACurrentMediaTime()
-        let middleIndex = array.count / 2
-        array.removeSubrange(middleIndex..<middleIndex + 1000)
-        let end = CACurrentMediaTime()
-        
-        let executionTime = end - start
-        let executionTimeFormatted = String(format: "%.2f", executionTime)
-        return executionTimeFormatted
-    }
-    //MARK: - row6
-    // Удаление из конца массива 1000 элементов по одному
-    func removeElementsFromEndOneByOne() -> String {
-        var array = [Int]()
-        for i in 0..<10_000_000 {
-            array.append(i)
-        }
-        
-        let start = CACurrentMediaTime()
-        for _ in 0..<1000 {
-            array.removeLast()
-        }
-        let end = CACurrentMediaTime()
-        let executionTime = end - start
-        let executionTimeFormatted = String(format: "%.2f", executionTime)
-        return executionTimeFormatted
-    }
-    
-    // Удаление из конца массива 1000 элементов по сразу
-    func removeElementsFromEndAllAtOnce() -> String {
-        var array = [Int]()
-        for i in 0..<10_000_000 {
-            array.append(i)
-        }
-        
-        let start = CACurrentMediaTime()
-        array.removeLast(1000)
-        let end = CACurrentMediaTime()
-        
-        let executionTime = end - start
-        let executionTimeFormatted = String(format: "%.2f", executionTime)
-        return executionTimeFormatted
     }
 }
