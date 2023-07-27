@@ -25,4 +25,3 @@ class SetOperations {
         return uniqueCharacters.map { String($0) }.joined(separator: "")
     }
 }
-

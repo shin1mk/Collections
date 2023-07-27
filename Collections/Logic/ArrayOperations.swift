@@ -8,7 +8,6 @@
 import Foundation
 import UIKit
 
-
 final class ArrayOperations {
     private let queue = DispatchQueue(label: "ArrayOperations_queue_working", qos: .userInitiated)
     private var array = [Int]()
@@ -27,6 +26,7 @@ final class ArrayOperations {
         }
     }
     //MARK: all methods
+    // row 1.1
     func insertElementsBeginningOneByOne(completion: ((Double) -> Void)?) {
         queue.async { [weak self] in
             guard let self else { return }

@@ -61,11 +61,10 @@ final class ArrayViewController: UIViewController {
     @objc private func backButtonTapped() {
         navigationController?.popViewController(animated: true)
     }
-    // MARK: Collection View
+    //MARK: Collection View
     private func setupCollectionView() {
         let layout = UICollectionViewFlowLayout()
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-//        collectionView.backgroundColor = .mainBackgroundColor
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(ArrayCollectionViewCell.self, forCellWithReuseIdentifier: "ArrayCollectionViewCell")
@@ -78,7 +77,7 @@ final class ArrayViewController: UIViewController {
         }
     }
 }
-// MARK: - Data Source
+//MARK: Data Source
 extension ArrayViewController: UICollectionViewDataSource {
     // Number of items
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -91,7 +90,7 @@ extension ArrayViewController: UICollectionViewDataSource {
         return cell
     }
 }
-
+//MARK: DidSelectItemAt
 extension ArrayViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? ArrayCollectionViewCell else { return }
@@ -182,7 +181,7 @@ extension ArrayViewController: UICollectionViewDelegate {
         }
     }
 }
-//MARK: sizeForItemAt размер и отступы
+//MARK: SizeForItemAt
 extension ArrayViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if indexPath.row == 0 {
