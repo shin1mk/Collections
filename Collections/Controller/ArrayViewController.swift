@@ -32,6 +32,7 @@ final class ArrayViewController: UIViewController {
         setupNavigationBar()
         setupCollectionView()
         setupConstraint()
+        navigationItem.largeTitleDisplayMode = .never
     }
     //MARK: Navigation bar
     private func setupNavigationBar() {

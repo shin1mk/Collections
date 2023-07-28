@@ -89,6 +89,7 @@ final class SetViewController: UIViewController {
         setupNavigationBar()
         setupConstraints()
         setupTarget()
+        navigationItem.largeTitleDisplayMode = .never
     }
     
     private func setupConstraints() {
@@ -188,7 +189,7 @@ extension SetViewController {
         static let heightTextField = 40
         static let horizontalEdges = 15
         static let topOffset = 10
-        static let textFieldFull = 130
+        static let textFieldFull = 100
         static let textFieldCharacters = 20
     }
 }

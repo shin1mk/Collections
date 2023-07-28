@@ -37,6 +37,7 @@ final class DictionaryViewController: UIViewController {
         setupNavigationBar()
         setupContraints()
         generateDataAndReloadCollectionView()
+        navigationItem.largeTitleDisplayMode = .never
     }
     //MARK: Navigation bar
     private func setupNavigationBar() {
