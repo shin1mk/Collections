@@ -16,16 +16,16 @@ final class ArrayCollectionViewCell: UICollectionViewCell {
     }
     var textToShow: String = "" {
         didSet {
-            labelCell.text = textToShow
+            cellLabel.text = textToShow
         }
     }
-    private let labelCell: UILabel = {
-        let labelCell = UILabel()
-        labelCell.font = UIFont.systemFont(ofSize: 16)
-        labelCell.textColor = .systemBlue
-        labelCell.textAlignment = .center
-        labelCell.numberOfLines = 0
-        return labelCell
+    private let cellLabel: UILabel = {
+        let cellLabel = UILabel()
+        cellLabel.font = UIFont.systemFont(ofSize: 16)
+        cellLabel.textColor = .systemBlue
+        cellLabel.textAlignment = .center
+        cellLabel.numberOfLines = 0
+        return cellLabel
     }()
     private let activityIndicator: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView()
@@ -43,8 +43,8 @@ final class ArrayCollectionViewCell: UICollectionViewCell {
     //MARK: Methods
     private func setupConstraints() {
         backgroundColor = .backgroundColor
-        addSubview(labelCell)
-        labelCell.snp.makeConstraints { make in
+        addSubview(cellLabel)
+        cellLabel.snp.makeConstraints { make in
             make.center.equalToSuperview()
             make.horizontalEdges.equalToSuperview().inset(15)
         }
@@ -60,12 +60,12 @@ final class ArrayCollectionViewCell: UICollectionViewCell {
         case .start:
             break
         case .loading:
-            labelCell.isHidden = true
+            cellLabel.isHidden = true
             activityIndicator.isHidden = false
             activityIndicator.startAnimating()
         case .complete(let result):
-            labelCell.isHidden = false
-            labelCell.text = "Execution time: \(result) sec"
+            cellLabel.isHidden = false
+            cellLabel.text = "Execution time: \(result) sec"
             activityIndicator.isHidden = true
             activityIndicator.stopAnimating()
         }

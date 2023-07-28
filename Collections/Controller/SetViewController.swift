@@ -10,26 +10,8 @@ import SnapKit
 
 final class SetViewController: UIViewController {
     //MARK: Properties
-    let setOperators = SetOperations()
-    private let backButton: UIButton = {
-        let button = UIButton()
-        let arrowImage = UIImage(systemName: "chevron.left")?.withTintColor(.systemBlue, renderingMode: .alwaysOriginal)
-        button.setImage(arrowImage, for: .normal)
-        button.setTitle("Collections", for: .normal)
-        button.setTitleColor(.systemBlue, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 22)
-        button.contentHorizontalAlignment = .left
-        return button
-    }()
-    private let titleLabel: UILabel = {
-        let titleLabel = UILabel()
-        titleLabel.text = "Set: 8317"
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 20)
-        titleLabel.textColor = .black
-        titleLabel.textAlignment = .center
-        return titleLabel
-    }()
-    private let textFieldFull: UITextField = {
+    private let setOperators = SetOperations()
+    private let firstTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.layer.cornerRadius = 6
@@ -41,7 +23,7 @@ final class SetViewController: UIViewController {
         textField.leftViewMode = .always
         return textField
     }()
-    private let textFieldCharacters: UITextField = {
+    private let secondTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.layer.cornerRadius = 6
@@ -53,7 +35,7 @@ final class SetViewController: UIViewController {
         textField.leftViewMode = .always
         return textField
     }()
-    private let buttonShowMatchingCharacters: UIButton = {
+    private let showMatchingCharactersButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("All matching letters", for: .normal)
@@ -68,7 +50,7 @@ final class SetViewController: UIViewController {
         label.textAlignment = .center
         return label
     }()
-    private let buttonShowNonMatchingCharacters: UIButton = {
+    private let showNonMatchingCharactersButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("All characters that do not match", for: .normal)
@@ -83,7 +65,7 @@ final class SetViewController: UIViewController {
         label.textAlignment = .center
         return label
     }()
-    private let buttonShowUniqueCharacters: UIButton = {
+    private let showUniqueCharactersButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("All unique characters from the first text field that do not match in text fields", for: .normal)
@@ -111,77 +93,71 @@ final class SetViewController: UIViewController {
     
     private func setupConstraints() {
         // textFields
-        view.addSubview(textFieldFull)
-        textFieldFull.snp.makeConstraints { make in
+        view.addSubview(firstTextField)
+        firstTextField.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(Constraints.textFieldFull)
             make.horizontalEdges.equalToSuperview().inset(Constraints.horizontalEdges)
             make.height.equalTo(Constraints.heightTextField)
         }
-        view.addSubview(textFieldCharacters)
-        textFieldCharacters.snp.makeConstraints { make in
-            make.top.equalTo(textFieldFull.snp.bottom).offset(Constraints.textFieldCharacters)
+        view.addSubview(secondTextField)
+        secondTextField.snp.makeConstraints { make in
+            make.top.equalTo(firstTextField.snp.bottom).offset(Constraints.textFieldCharacters)
             make.horizontalEdges.equalToSuperview().inset(Constraints.horizontalEdges)
             make.height.equalTo(Constraints.heightTextField)
         }
         // ShowMatchingCharacters
-        view.addSubview(buttonShowMatchingCharacters)
-        buttonShowMatchingCharacters.snp.makeConstraints { make in
-            make.top.equalTo(textFieldCharacters.snp.bottom).offset(Constraints.textFieldCharacters)
+        view.addSubview(showMatchingCharactersButton)
+        showMatchingCharactersButton.snp.makeConstraints { make in
+            make.top.equalTo(secondTextField.snp.bottom).offset(Constraints.textFieldCharacters)
             make.horizontalEdges.equalToSuperview().inset(Constraints.horizontalEdges)
             make.height.equalTo(Constraints.heightButton)
         }
         view.addSubview(matchingResultLabel)
         matchingResultLabel.snp.makeConstraints { make in
-            make.top.equalTo(buttonShowMatchingCharacters.snp.bottom).offset(Constraints.topOffset)
+            make.top.equalTo(showMatchingCharactersButton.snp.bottom).offset(Constraints.topOffset)
             make.horizontalEdges.equalToSuperview().inset(Constraints.horizontalEdges)
             make.height.equalTo(Constraints.heightResultLabel)
         }
         // NonMatchingCharacters
-        view.addSubview(buttonShowNonMatchingCharacters)
-        buttonShowNonMatchingCharacters.snp.makeConstraints { make in
+        view.addSubview(showNonMatchingCharactersButton)
+        showNonMatchingCharactersButton.snp.makeConstraints { make in
             make.top.equalTo(matchingResultLabel.snp.bottom).offset(Constraints.topOffset)
             make.horizontalEdges.equalToSuperview().inset(Constraints.horizontalEdges)
             make.height.equalTo(Constraints.heightButton)
         }
         view.addSubview(nonMatchResultLabel)
         nonMatchResultLabel.snp.makeConstraints { make in
-            make.top.equalTo(buttonShowNonMatchingCharacters.snp.bottom).offset(Constraints.topOffset)
+            make.top.equalTo(showNonMatchingCharactersButton.snp.bottom).offset(Constraints.topOffset)
             make.horizontalEdges.equalToSuperview().inset(Constraints.horizontalEdges)
             make.height.equalTo(Constraints.heightResultLabel)
         }
         // uniqueResultLabel
-        view.addSubview(buttonShowUniqueCharacters)
-        buttonShowUniqueCharacters.snp.makeConstraints { make in
+        view.addSubview(showUniqueCharactersButton)
+        showUniqueCharactersButton.snp.makeConstraints { make in
             make.top.equalTo(nonMatchResultLabel.snp.bottom).offset(Constraints.topOffset)
             make.horizontalEdges.equalToSuperview().inset(Constraints.horizontalEdges)
             make.height.equalTo(Constraints.heightButton)
         }
         view.addSubview(uniqueResultLabel)
         uniqueResultLabel.snp.makeConstraints { make in
-            make.top.equalTo(buttonShowUniqueCharacters.snp.bottom).offset(Constraints.topOffset)
+            make.top.equalTo(showUniqueCharactersButton.snp.bottom).offset(Constraints.topOffset)
             make.horizontalEdges.equalToSuperview().inset(Constraints.horizontalEdges)
             make.height.equalTo(Constraints.heightResultLabel)
         }
     }
     
     private func setupTarget() {
-        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-        buttonShowMatchingCharacters.addTarget(self, action: #selector(showMatchingCharacters), for: .touchUpInside)
-        buttonShowNonMatchingCharacters.addTarget(self, action: #selector(showNonMatchingCharacters), for: .touchUpInside)
-        buttonShowUniqueCharacters.addTarget(self, action: #selector(showUniqueCharacters), for: .touchUpInside)
+        showMatchingCharactersButton.addTarget(self, action: #selector(showMatchingCharacters), for: .touchUpInside)
+        showNonMatchingCharactersButton.addTarget(self, action: #selector(showNonMatchingCharacters), for: .touchUpInside)
+        showUniqueCharactersButton.addTarget(self, action: #selector(showUniqueCharacters), for: .touchUpInside)
     }
     //MARK: Navigation bar
     private func setupNavigationBar() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backButton)
-        navigationItem.titleView = titleLabel
-    }
-    
-    @objc private func backButtonTapped() {
-        navigationController?.popViewController(animated: true)
+        self.navigationItem.title = "Set"
     }
     //MARK: - Button Actions
     @objc private func showMatchingCharacters() {
-        guard let textFull = textFieldFull.text, let textCharacters = textFieldCharacters.text else {
+        guard let textFull = firstTextField.text, let textCharacters = secondTextField.text else {
             return
         }
         let matchingCharactersString = setOperators.findMatchingCharacters(textFull: textFull, textCharacters: textCharacters)
@@ -189,7 +165,7 @@ final class SetViewController: UIViewController {
     }
     
     @objc private func showNonMatchingCharacters() {
-        guard let textFull = textFieldFull.text, let textCharacters = textFieldCharacters.text else {
+        guard let textFull = firstTextField.text, let textCharacters = secondTextField.text else {
             return
         }
         let nonMatchingCharactersString = setOperators.findNonMatchingCharacters(textFull: textFull, textCharacters: textCharacters)
@@ -197,7 +173,7 @@ final class SetViewController: UIViewController {
     }
     
     @objc private func showUniqueCharacters() {
-        guard let textFull = textFieldFull.text, let textCharacters = textFieldCharacters.text else {
+        guard let textFull = firstTextField.text, let textCharacters = secondTextField.text else {
             return
         }
         let uniqueCharactersString = setOperators.findUniqueCharacters(textFull: textFull, textCharacters: textCharacters)

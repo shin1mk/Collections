@@ -34,7 +34,7 @@ class DictionaryOperations {
             contactDictionary[name] = phoneNumber
         }
     }
-    //MARK: methods
+    //MARK: Operations with array
     //Array 1
     func findFirstElenemtInArray(completion: ((Double, Int) -> Void)?) {
         queue.async { [weak self] in

@@ -11,19 +11,15 @@ import SnapKit
 final class MainController: UIViewController {
     //MARK: Properties
     private var tableView: CollectionViewTable!
-    private let titleLabel: UILabel = {
-        let title = UILabel()
-        title.text = "Collections"
-        title.font = UIFont.boldSystemFont(ofSize: 34)
-        title.textColor = .black
-        return title
-    }()
     //MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
         setupConstraints()
         setupTableViewDelegate()
+        self.title = "Collections"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        
     }
     //MARK: Methods
     private func setupTableViewDelegate() {
@@ -36,17 +32,10 @@ final class MainController: UIViewController {
     //MARK: Constraints
     private func setupConstraints() {
         view.backgroundColor = .white
-        //title label
-        view.addSubview(titleLabel)
-        titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(view.snp.top).offset(Constraints.titleLabelTop)
-            make.leading.equalTo(view).offset(Constraints.titleLabelLeading)
-            make.trailing.lessThanOrEqualTo(view)
-        }
         //table view
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(Constraints.tableViewTop)
+            make.top.equalTo(view.safeAreaLayoutGuide)
             make.horizontalEdges.equalTo(view.snp.horizontalEdges)
             make.bottom.equalTo(view.snp.bottom)
         }
