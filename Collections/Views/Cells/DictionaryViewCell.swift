@@ -52,23 +52,7 @@ class DictionaryViewCell: UICollectionViewCell {
             make.center.equalToSuperview()
         }
     }
-//    private func updateUI(_ appState: AppState) {
-//        switch appState {
-//        case .start:
-//            return
-//        case .loading:
-//            activityIndicator.startAnimating()
-//            label.isHidden = true
-//        case .complete(let result, let elementFound):
-//            activityIndicator.stopAnimating()
-//            label.isHidden = false
-//            if elementFound != nil {
-//                label.text = "Search time: \(result) sec\n non existing element: \(elementFound)"
-//            } else {
-//                label.text = "Search time: \(result) sec\n non existing element: found"
-//            }
-//        }
-//    }
+
     private func updateUI(_ appState: AppState) {
         switch appState {
         case .start:
@@ -87,7 +71,6 @@ class DictionaryViewCell: UICollectionViewCell {
             }
         }
     }
-
 }
 //MARK: extensions
 extension DictionaryViewCell {

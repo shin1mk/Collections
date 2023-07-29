@@ -10,21 +10,20 @@ import XCTest
 
 final class ArrayOperationsTests: XCTestCase {
     var arrayOperations: ArrayOperations!
-
+    
     override func setUpWithError() throws {
         try super.setUpWithError()
         arrayOperations = ArrayOperations()
     }
-
     override func tearDownWithError() throws {
         arrayOperations = nil
         try super.tearDownWithError()
     }
 
     func testGenerateIntArray() {
-        let expectation = XCTestExpectation(description: "Generate int array")
+        let expectation = XCTestExpectation()
         arrayOperations.generateIntArray { timeInSeconds in
-            XCTAssertGreaterThan(timeInSeconds, 0, "Generating int array should take some time")
+            XCTAssertGreaterThan(timeInSeconds, 0)
             expectation.fulfill()
         }
     }
@@ -32,7 +31,6 @@ final class ArrayOperationsTests: XCTestCase {
 
 final class SetOperationsTests: XCTestCase {
     var setOperations: SetOperations!
-
     override func setUpWithError() throws {
         try super.setUpWithError()
         setOperations = SetOperations()
@@ -42,41 +40,32 @@ final class SetOperationsTests: XCTestCase {
         setOperations = nil
         try super.tearDownWithError()
     }
-
-    // Test findMatchingCharacters
-    func testSetMatchChars() throws {
-        let text1 = "Temp"
-        let text2 = "amper"
-        let expectedResult = "emp"
-        
+    //findMatchingCharacters
+    func testSetMatchingCharacters() throws {
+        let text1 = "hello"
+        let text2 = "world"
+        let expectedResult = "lo"
         let setOperationsResult = setOperations.findMatchingCharacters(textFull: text1, textCharacters: text2)
-        
         let expectedSet = Set(expectedResult)
         let resultSet = Set(setOperationsResult)
         XCTAssertEqual(expectedSet, resultSet)
     }
-
-    // Test findNonMatchingCharacters
-    func testSetNotMatchChars() throws {
-        let text1 = "Temp"
-        let text2 = "amper"
-        let expectedResult = "Tar"
-        
+    //findNonMatchingCharacters
+    func testSetNotMatchingCharacters() throws {
+        let text1 = "hello"
+        let text2 = "world"
+        let expectedResult = "rhwde"
         let setOperationsResult = setOperations.findNonMatchingCharacters(textFull: text1, textCharacters: text2)
-        
         let expectedSet = Set(expectedResult)
         let resultSet = Set(setOperationsResult)
         XCTAssertEqual(expectedSet, resultSet)
     }
-
-    // Test findUniqueCharacters
-    func testSetUniqueChars() throws {
-        let text1 = "Temp"
-        let text2 = "amper"
-        let expectedResult = "T"
-        
+    //findUniqueCharacters
+    func testSetUniqueCharacters() throws {
+        let text1 = "hello"
+        let text2 = "world"
+        let expectedResult = "eh"
         let setOperationsResult = setOperations.findUniqueCharacters(textFull: text1, textCharacters: text2)
-        
         XCTAssertEqual(expectedResult, setOperationsResult)
     }
 }
@@ -96,10 +85,9 @@ final class DictionaryOperationsTests: XCTestCase {
     }
 
     func testFindNotExistingElenemtInDictionary() throws {
-        let expectation = self.expectation(description: "Find Not Existing Element in Dictionary")
-
+        let expectation = self.expectation(description: "Find Not Existing")
         dictionaryOperations.findNotExistingElenemtInDictionary { (time, flag) in
-            XCTAssertEqual(flag, 0, "The flag should be 0 as the element does not exist")
+            XCTAssertEqual(flag, 0, "does not exist")
             expectation.fulfill()
         }
         waitForExpectations(timeout: 10.0, handler: nil)

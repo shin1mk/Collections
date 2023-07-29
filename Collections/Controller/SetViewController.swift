@@ -21,6 +21,7 @@ final class SetViewController: UIViewController {
         let leftPaddingView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: 1))
         textField.leftView = leftPaddingView
         textField.leftViewMode = .always
+        textField.accessibilityIdentifier = "firstTextField"
         return textField
     }()
     private let secondTextField: UITextField = {
@@ -33,6 +34,7 @@ final class SetViewController: UIViewController {
         let leftPaddingView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: 1))
         textField.leftView = leftPaddingView
         textField.leftViewMode = .always
+        textField.accessibilityIdentifier = "secondTextField"
         return textField
     }()
     private let showMatchingCharactersButton: UIButton = {
@@ -40,6 +42,7 @@ final class SetViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("All matching letters", for: .normal)
         button.setTitleColor(.systemBlue, for: .normal)
+        button.accessibilityIdentifier = "showMatchingCharactersButton"
         return button
     }()
     private let matchingResultLabel: UILabel = {
